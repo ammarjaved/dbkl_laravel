@@ -35,13 +35,27 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'user_type' => 'required',
             'password' => 'required|string|confirmed|min:8',
         ]);
+
+        $dbkl  = '';
+        $vendor = '';
+
+        if($request->user_type == "dbkl"){
+            $dbkl = $request->dbkl_user_type;
+        }elseif ($request->user_type == "vendor"){
+            $vendor = $request->vendor_user_type;
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'app_user_type' => $request->user_type,
+            'dbkl_user_type' => $dbkl,
+            'vendor_user_type' => $vendor,
             'password' => Hash::make($request->password),
+
         ]);
 
         event(new Registered($user));

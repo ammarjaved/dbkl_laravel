@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     @include('layouts.shared/title-meta', ['title' => "Log In"])
     @include('layouts.shared/head-css', ["mode" => $mode ?? '', "demo" => $demo ?? ''])
 
@@ -21,7 +22,7 @@
                                 <div class="auth-logo">
                                     <a href="{{route('any', 'index')}}" class="logo logo-dark text-center">
                                         <span class="logo-lg">
-                                            <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="22">
+                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="35">
                                         </span>
                                     </a>
 
@@ -53,9 +54,11 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="emailaddress" class="form-label">Email address</label>
-                                    <input class="form-control" type="email" name="email" id="emailaddress" required="" placeholder="Enter your email">
+                                    <label for="emailaddress" class="form-label">Username</label>
+                                    <input class="form-control" type="text" name="name" id="emailaddress" required="" placeholder="Enter your username">
                                 </div>
+                                
+                                
 
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
@@ -70,10 +73,10 @@
 
 
                                 <div class="mb-3">
-                                    <div class="form-check">
+                                    {{-- <div class="form-check">
                                         <input type="checkbox" name="remember" class="form-check-input" id="checkbox-signin" checked>
                                         <label class="form-check-label" for="checkbox-signin">Remember me</label>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="text-center d-grid">
@@ -82,23 +85,7 @@
 
                             </form>
 
-                            <div class="text-center">
-                                <h5 class="mt-3 text-muted">Sign in with</h5>
-                                <ul class="social-list list-inline mt-3 mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
 
                         </div> <!-- end card-body -->
                     </div>
@@ -106,10 +93,10 @@
 
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p> <a href="{{route('password.request')}}" class="text-white-50 ms-1">Forgot your password?</a></p>
-                            <p class="text-white-50">Don't have an account? <a href="{{route('second', ['auth', 'register'])}}" class="text-white ms-1"><b>Sign Up</b></a></p>
-                        </div> <!-- end col -->
-                    </div>
+                            {{-- <p> <a href="{{route('password.request')}}" class="text-white-50 ms-1">Forgot your password?</a></p> --}}
+                          <p class="text-white-50">Don't have an account? <a href="/register" class="text-white ms-1"><b>Sign Up</b></a></p>
+                        </div> <!-- end col --> 
+                     </div>
                     <!-- end row -->
 
                 </div> <!-- end col -->
@@ -120,11 +107,7 @@
     </div>
     <!-- end page -->
 
-    <footer class="footer footer-alt">
-        2015 - <script>
-            document.write(new Date().getFullYear())
-        </script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a>
-    </footer>
+   
 
     @include('layouts.shared/footer-script')
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\application;
+use App\Http\Controllers\PermitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 
@@ -15,11 +17,23 @@ use App\Http\Controllers\RoutingController;
 |
 */
 
-Route::get('/home', function () {
-    return view('index');
-})->middleware('auth')->name('home');
+// Route::get('/home', function () {
+//     return view('index');
+// })->middleware('auth')->name('home');
 
 require __DIR__ . '/auth.php';
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::view('dashboard',"dashboard");
+    Route::resource('permit',PermitController::class);
+    Route::resource('application',application::class);
+
+
+  
+});
+
+
 
 Route::group(['prefix' => '/'], function () {
     Route::get('', [RoutingController::class, 'index'])->name('root');

@@ -20,9 +20,11 @@ class RoutingController extends Controller
     public function index(Request $request)
     {
         if (Auth::user()) {
-            return redirect('index');
+            return Auth::user()->type == 'superAdmin' ? redirect()->route('agency.index') : redirect()->route('client.index') ;
+            // if(Auth::user()->type == 'superAdmin')
+            // return redirect('client.create');
         } else {
-            return view('landing');
+            return redirect('/login');
         }
     }
 

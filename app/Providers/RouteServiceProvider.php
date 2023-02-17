@@ -17,7 +17,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/dashboard';
+
+    // protected $namespace = 'App\Http\Controllers';
+ 
 
     /**
      * The controller namespace for the application.
@@ -46,8 +49,25 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+                
+                
+
         });
+
+        
+
+      
+        
+
     }
+
+
+    public function map(){
+       
+    }
+
+   
 
     /**
      * Configure the rate limiters for the application.
@@ -60,4 +80,14 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
     }
+
+
+    protected function mapClientRoutes()
+    {
+        Route::prefix('agency')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/agency.php'));
+    }
 }
+
+

@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <ul class="list-unstyled topnav-menu float-end mb-0">
 
-            <li class="d-none d-lg-block">
+            {{-- <li class="d-none d-lg-block">
                 <form class="app-search">
                     <div class="app-search-box dropdown">
                         <div class="input-group">
@@ -68,9 +68,9 @@
                         </div>
                     </div>
                 </form>
-            </li>
+            </li> --}}
 
-            <li class="dropdown d-inline-block d-lg-none">
+            {{-- <li class="dropdown d-inline-block d-lg-none">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-search noti-icon"></i>
                 </a>
@@ -79,9 +79,9 @@
                         <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
                     </form>
                 </div>
-            </li>
+            </li> --}}
 
-            <li class="dropdown d-none d-lg-inline-block">
+            {{-- <li class="dropdown d-none d-lg-inline-block">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#">
                     <i class="fe-maximize noti-icon"></i>
                 </a>
@@ -139,9 +139,9 @@
                     </div>
 
                 </div>
-            </li>
+            </li> --}}
 
-            <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
+            {{-- <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <img src="{{asset('assets/images/flags/us.jpg')}}" alt="user-image" height="16">
                 </a>
@@ -262,11 +262,11 @@
 
                 </div>
             </li>
-
+ --}}
             <li class="dropdown notification-list topbar-dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{asset('assets/images/users/user-9.jpg')}}" alt="user-image" class="rounded-circle">
-                    <span class="pro-user-name ms-1">
+                    <img src="{{asset('images/user-logo.png')}}" alt="user-image" class="rounded-circle">
+                    <span class="pro-user-name ms-1 ">
                         {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -276,14 +276,26 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    @if (Auth::user()->type == "agency")
+                    <a href="/my-account/{{ Auth::user()->name}}" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account</span>
-                    </a>
-
+                    </a> 
+                    @endif
+                    @if (Auth::user()->type == "superAdmin")
+                    <a href="/change-password/{{Auth::user()->name}}" class="dropdown-item notify-item">
+                        <i class="fe-lock"></i>
+                        <span>Change Password</span>
+                    </a> 
+                    @endif
+              
+                        
+                    
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    
+                    
+                    <!-- item-->
+                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-settings"></i>
                         <span>Settings</span>
                     </a>
@@ -292,7 +304,7 @@
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-lock"></i>
                         <span>Lock Screen</span>
-                    </a>
+                    </a> --}}
 
                     <div class="dropdown-divider"></div>
 
@@ -309,17 +321,17 @@
                 </div>
             </li>
 
-            <li class="dropdown notification-list">
+            {{-- <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
                 </a>
-            </li>
+            </li> --}}
 
         </ul>
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="{{route('any', 'index')}}" class="logo logo-dark text-center">
+            <a href="{{Auth::user()->type== 'superAdmin' ? '/admin-dashboard' :'/dashboard' }}" class="logo logo-dark text-center">
                 <span class="logo-sm">
                     <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -330,22 +342,25 @@
                 </span>
             </a>
 
-            <a href="{{route('any', 'index')}}" class="logo logo-light text-center">
+            <a href="{{Auth::user()->type== 'superAdmin' ? '/admin-dashboard' :'/dashboard' }}" class="logo logo-light text-center">
                 <span class="logo-sm">
-                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
+                    <img src="{{asset('images/main-logo-sm.png')}}" alt="" height="35">
                 </span>
                 <span class="logo-lg">
-                    <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="20">
+                    <img src="{{asset('images/main-logo.png')}}" alt="" height="35">
                 </span>
             </a>
         </div>
 
         <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            @if (!request()->is("agency/create"))
+           
             <li>
                 <button class="button-menu-mobile waves-effect waves-light">
                     <i class="fe-menu"></i>
                 </button>
             </li>
+            @endif
 
             <li>
                 <!-- Mobile menu toggle (Horizontal Layout)-->
@@ -359,7 +374,7 @@
                 <!-- End mobile menu toggle-->
             </li>
 
-            <li class="dropdown d-none d-xl-block">
+            {{-- <li class="dropdown d-none d-xl-block">
                 <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     Create New
                     <i class="mdi mdi-chevron-down"></i>
@@ -398,9 +413,9 @@
                     </a>
 
                 </div>
-            </li>
+            </li> --}}
 
-            <li class="dropdown dropdown-mega d-none d-xl-block">
+            {{-- <li class="dropdown dropdown-mega d-none d-xl-block">
                 <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     Mega Menu
                     <i class="mdi mdi-chevron-down"></i>
@@ -502,7 +517,7 @@
                     </div>
 
                 </div>
-            </li>
+            </li> --}}
         </ul>
         <div class="clearfix"></div>
     </div>
