@@ -13,6 +13,7 @@ body {
   background-color: #f1f1f1;
 }
 
+
 #regForm {
   background-color: #ffffff;
   margin: 100px auto;

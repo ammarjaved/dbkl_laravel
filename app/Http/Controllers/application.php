@@ -32,7 +32,7 @@ class application extends Controller
     public function create()
     {
         //
-        return view("Application.create-2");
+        return view("Application.create");
     }
 
     /**
@@ -42,32 +42,35 @@ class application extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(RequestsApplication $request)
-    {
+    {   
+        $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
+        $request['parlimen'] = serialize($request->parlimen);
+        // dd($request->all());
         try{
 
         $app = infoApplicant::create($request->all());
      
-        $contractor = ContractorInfo::create($request->all());
-        $owner = OwnerInfo::create([
-            'phone'=>$request->owner_phone,
-            'fax'=>$request->owner_fax,
-            'company_name'=>$request->owner_company_name,
-            'address'=>$request->owner_address,
-            'email'=>$request->email
-        ]);
+        // $contractor = ContractorInfo::create($request->all());
+        // $owner = OwnerInfo::create([
+        //     'phone'=>$request->owner_phone,
+        //     'fax'=>$request->owner_fax,
+        //     'company_name'=>$request->owner_company_name,
+        //     'address'=>$request->owner_address,
+        //     'email'=>$request->email
+        // ]);
 
-        $permit =  
-        Permit::create(
-           $request->all()
+        // $permit =  
+        // Permit::create(
+        //    $request->all()
           
-        );
+        // );
 
-        $pprk = Permit::find($permit->id);
+        // $pprk = Permit::find($permit->id);
         
-        $permit->applicant_id = $app->id;
-        $permit->contractor_id =$contractor->id;
-        $permit->owner_id= $owner->id;
-        $permit->update();
+        // $permit->applicant_id = $app->id;
+        // $permit->contractor_id =$contractor->id;
+        // $permit->owner_id= $owner->id;
+        // $permit->update();
 
       
            
@@ -125,6 +128,8 @@ class application extends Controller
     {
 
         try {
+            $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
+            $request['parlimen'] = serialize($request->parlimen);
             infoApplicant::find($id)->update($request->all());
         }catch(Exception $e){
             return redirect()->route('application.index')->with('message','something is worng try again later');
