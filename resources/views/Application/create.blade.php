@@ -88,6 +88,9 @@
                             id="application_type" value="{{ old('application_type') }}"></div>
                     <div class="col-md-1 pt-2 text-center">Meter</div>
                 </div>
+                <div  class="row p-3 pb-0">
+                    <div id="map" style="width: 100%;height: 500px;"></div>
+                </div>    
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="digout_area">Nama Division</label><br>
                         <span class="text-danger">
@@ -238,12 +241,71 @@
     <script src="{{ asset('assets/js/pages/loading-btn.init.js') }}"></script>
     <!-- end demo js-->
 
-    <script>
-        document.getElementsByTagName("input").addEventListener("change", myFunction);
 
-        function myFunction() {
-            var x = document.getElementsByTagName("input");
-            x.value = x.value.toUpperCase();
-        }
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="{{ URL::asset('map/draw/leaflet.draw.css')}}"/>
+       {{-- <link rel="stylesheet" href="{{ URL::asset('assets/src/leaflet.draw.css')}}"/>  --}}
+
+
+
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+    {{-- <script src="{{ URL::asset('map/draw/leaflet.draw-custom.js')}}"></script> --}}
+    <<script src="{{ URL::asset('assets/js/leaflet.draw.js')}}"></script>
+
+    <script src="{{ URL::asset('map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js')}}"></script>
+
+    <script>
+     var center = [3.016603, 101.858382];
+    $(document).ready(function(){
+        var map = L.map('map').setView(center, 11);
+
+        // Set up the OSM layer
+        L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
+
+
+//setTimeout(function(){
+
+
+    var drawnItems = new L.FeatureGroup();
+         map.addLayer(drawnItems);
+         var drawControl = new L.Control.Draw({
+          draw :{
+              circle:false,
+            marker: true,
+            polygon:true,
+            polyline: {
+            shapeOptions: {
+                color: '#f357a1',
+                weight: 10
+            }
+            },
+            rectangle:true
+          }
+          ,
+             edit: {
+                 featureGroup: drawnItems
+             }
+         });
+         
+         map.addControl(drawControl);
+
+
+         map.on('draw:created', function(e) {
+            var type = e.layerType;
+            layer = e.layer;
+            drawnItems.addLayer(layer);
+            // console.log(type);
+            var data = layer.toGeoJSON();
+             console.log(JSON.stringify(data));
+          //  $('#layer').val(JSON.stringify(data.geometry));
+
+        })
+ //},2000)
+});
     </script>
 @endsection

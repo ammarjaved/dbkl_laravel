@@ -46,14 +46,14 @@
 
             <ul id="side-menu">
                 <li class="menu-title">Navigation</li>
-                <li>
+                {{-- <li>
                     <a href="/dashboard">
                         <i data-feather="airplay"></i>
 
                         <span> Dashboard </span>
                     </a>
 
-                </li>
+                </li> --}}
 
      
 
