@@ -136,7 +136,9 @@ class application extends Controller
             $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
             $request['parlimen'] = serialize($request->parlimen);
             infoApplicant::find($id)->update($request->all());
+            if($request->geom != ""){
             DB::select("UPDATE application_geom_info set  geom = st_geomfromgeojson('$request->geom') WHERE application_id = $id");
+            }
         }catch(Exception $e){
             return $e->getMessage();
             return redirect()->route('application.index')->with('message','something is worng try again later');
