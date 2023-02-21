@@ -9,6 +9,7 @@ use App\Models\OwnerInfo;
 use App\Models\Permit;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class application extends Controller
 {
@@ -45,10 +46,14 @@ class application extends Controller
     {   
         $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
         $request['parlimen'] = serialize($request->parlimen);
+
+        // dd($request->all());
         // dd($request->all());
         try{
-
+            // dd($request);
         $app = infoApplicant::create($request->all());
+
+        DB::select("INSERT INTO application_geom_info (application_id, geom) VALUES ($app->id , st_geomfromgeojson('$request->geom'))");
      
         // $contractor = ContractorInfo::create($request->all());
         // $owner = OwnerInfo::create([
@@ -101,7 +106,7 @@ class application extends Controller
         //  }  
         //  dd($data);
         
-        return $app  ? view('Application.show',['app'=>$app,]) : abort('404');
+        return $app  ? view('Application.show',['app'=>$app]) : abort('404');
     }
 
     /**
@@ -113,8 +118,8 @@ class application extends Controller
     public function edit($id)
     {
         $app = infoApplicant::find($id);
-        
-        return $app  ? view('Application.edit',['app'=>$app]) : abort('404');
+
+        return $app  ? view('Application.edit',['app'=>$app ]) : abort('404');
     }
 
     /**
@@ -131,7 +136,9 @@ class application extends Controller
             $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
             $request['parlimen'] = serialize($request->parlimen);
             infoApplicant::find($id)->update($request->all());
+            DB::select("UPDATE application_geom_info set  geom = st_geomfromgeojson('$request->geom') WHERE application_id = $id");
         }catch(Exception $e){
+            return $e->getMessage();
             return redirect()->route('application.index')->with('message','something is worng try again later');
         }
         return redirect()->route('application.index');

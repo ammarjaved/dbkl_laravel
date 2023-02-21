@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\application;
+use App\Http\Controllers\ApplicationGeom;
 use App\Http\Controllers\PermitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
@@ -28,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('dashboard',"dashboard");
     Route::resource('permit',PermitController::class);
     Route::resource('application',application::class);
+    Route::get('get-application-geom/{id}',[ApplicationGeom::class,'getGeom']);
 
 
   

@@ -37,6 +37,7 @@ class StorePermitRequest extends FormRequest
             'applicant_id' => 'required',
             'contractor_id' => 'required',
             'owner_id' => 'required',
+            // 'geom'=>'required'
         ];
     }
 }

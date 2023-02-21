@@ -89,7 +89,9 @@
                     <div class="col-md-1 pt-2 text-center">Meter</div>
                 </div>
                 <div  class="row p-3 pb-0">
+                    <span class="text-danger">@error('geom'){{$message}} @enderror</span>
                     <div id="map" style="width: 100%;height: 500px;"></div>
+                    <input type="hidden" name="geom" id="geomID" value="{{old('geom')}}">
                 </div>    
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="digout_area">Nama Division</label><br>
@@ -301,10 +303,31 @@
             drawnItems.addLayer(layer);
             // console.log(type);
             var data = layer.toGeoJSON();
-             console.log(JSON.stringify(data));
+             console.log(JSON.stringify(data.geometry));
+             $('#geomID').val(JSON.stringify(data.geometry));
           //  $('#layer').val(JSON.stringify(data.geometry));
 
         })
+
+        map.on('draw:edited', function(e) {
+            var layers = e.layers;
+            layers.eachLayer(function(data) {
+                let layer_d = data.toGeoJSON();
+                let layer = JSON.stringify(layer_d.geometry);
+                // console.log(layer);
+  
+                $('#geomID').val(layer);
+               
+            });
+        });
+
+
+        map.on('draw:deleted', function(e) {
+            var layers = e.layers;
+            layers.eachLayer(function(layer) {
+                $('#geomID').val('');
+            });
+        });
  //},2000)
 });
     </script>

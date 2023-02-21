@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
 
         if ( auth()->attempt(['name' => $input['name'], 'password' => $input['password']])) {
 
-            return Auth::user()->type == "superAdmin" ? redirect('/admin-dashboard') : redirect('/dashboard');
+            return redirect()->route('application.index');
             }
             else{
                 throw ValidationException::withMessages([

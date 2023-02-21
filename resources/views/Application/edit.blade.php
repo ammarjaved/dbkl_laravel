@@ -72,6 +72,11 @@
                 </span></div>
             <div class="col-md-5"><input type="text" class="form-control" name="application_type" id="application_type" value="{{old('application_type', $app->application_type)}}"></div>
         </div>
+
+        <div  class="row p-3 pb-0">
+            <div id="map" style="width: 100%;height: 500px;"></div>
+            <input type="hidden" name="geom" id="geomID" value="{{old('geom')}}">
+        </div>    
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="digout_area">Nama Division</label><br>
                 <span class="text-danger">
@@ -115,6 +120,7 @@
                         {{ $message }}
                     @enderror
                 </span></div>
+                <input type="hidden" id="appID" value="{{$app->id}}">
             <div class="col-md-8">
                 @php
                 $address =   explode(" --",$app->address);
@@ -197,4 +203,132 @@
 </div>
 
 
+@endsection
+
+
+
+@section('script')
+    <!-- third party js -->
+    <script src="{{ asset('assets/libs/ladda/ladda.min.js') }}"></script>
+    <!-- third party js ends -->
+
+    <!-- demo app -->
+    <script src="{{ asset('assets/js/pages/loading-btn.init.js') }}"></script>
+    <!-- end demo js-->
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="{{ URL::asset('map/draw/leaflet.draw.css')}}"/>
+       {{-- <link rel="stylesheet" href="{{ URL::asset('assets/src/leaflet.draw.css')}}"/>  --}}
+
+
+
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+    {{-- <script src="{{ URL::asset('map/draw/leaflet.draw-custom.js')}}"></script> --}}
+    <<script src="{{ URL::asset('assets/js/leaflet.draw.js')}}"></script>
+
+    <script src="{{ URL::asset('map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js')}}"></script>
+
+    <script>
+     var center = [3.016603, 101.858382];
+    $(document).ready(function(){
+        var map = L.map('map').setView(center, 11);
+
+        // Set up the OSM layer
+        L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
+
+
+//setTimeout(function(){
+   
+
+    var drawnItems = new L.FeatureGroup();
+         map.addLayer(drawnItems);
+         var drawControl = new L.Control.Draw({
+          draw :{
+              circle:false,
+            marker: true,
+            polygon:true,
+            polyline: {
+            shapeOptions: {
+                color: '#f357a1',
+                weight: 10
+            }
+            },
+            rectangle:true
+          }
+          ,
+             edit: {
+                 featureGroup: drawnItems
+             }
+         });
+         
+         map.addControl(drawControl);
+
+
+         map.on('draw:created', function(e) {
+            var type = e.layerType;
+            layer = e.layer;
+            drawnItems.addLayer(layer);
+            // console.log(type);
+            var data = layer.toGeoJSON();
+             console.log(JSON.stringify(data.geometry));
+             $('#geomID').val(JSON.stringify(data.geometry));
+          //  $('#layer').val(JSON.stringify(data.geometry));
+
+        })
+
+        map.on('draw:edited', function(e) {
+            var layers = e.layers;
+            layers.eachLayer(function(data) {
+                let layer_d = data.toGeoJSON();
+                let layer = JSON.stringify(layer_d.geometry);
+                // console.log(layer);
+  
+                $('#geomID').val(layer);
+               
+            });
+        });
+
+
+        map.on('draw:deleted', function(e) {
+            var layers = e.layers;
+            layers.eachLayer(function(layer) {
+                $('#geomID').val('');
+            });
+        });
+
+        let appID = $('#appID').val();
+        // alert(appID);
+            $.ajax({
+                type: "GET",
+                url: `/get-application-geom/${appID}`,
+
+                success: function(data) {
+                      // console.log(JSON.parse(data));
+                      var myLayer = L.geoJSON(JSON.parse(data));
+                      console.log(JSON.parse(data))
+                      $('#GeomID').val(JSON.parse(data));
+                    addNonGroupLayers(myLayer, drawnItems);
+                    map.fitBounds(myLayer.getBounds());
+                },
+            });
+
+ //},2000)
+});
+
+function addNonGroupLayers(sourceLayer, targetGroup) {
+            if (sourceLayer instanceof L.LayerGroup) {
+                sourceLayer.eachLayer(function(layer) {
+                    addNonGroupLayers(layer, targetGroup);
+                });
+            } else {
+                targetGroup.addLayer(sourceLayer);
+            }
+        }
+    </script>
 @endsection

@@ -58,6 +58,11 @@
             <div class="col-md-4"><label for="application_type">Panjang kabel</label></div>
             <div class="col-md-5"><input type="text" class="form-control"  value="{{$app->application_type}}" disabled></div>
         </div>
+
+        <div  class="row p-3 pb-0">
+            <div id="map" style="width: 100%;height: 500px;"></div>
+            <input type="hidden"  id="appID" value="{{$app->id}}">
+        </div>    
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="digout_area">Nama Division</label></div>
             <div class="col-md-5"><input type="text" class="form-control" disabled value="{{$app->digout_area}}"></div>
@@ -155,12 +160,78 @@
 @endsection
 
 @section('script')
+    <!-- third party js -->
+    <script src="{{ asset('assets/libs/ladda/ladda.min.js') }}"></script>
+    <!-- third party js ends -->
+
+    <!-- demo app -->
+    <script src="{{ asset('assets/js/pages/loading-btn.init.js') }}"></script>
+    <!-- end demo js-->
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="{{ URL::asset('map/draw/leaflet.draw.css')}}"/>
+       {{-- <link rel="stylesheet" href="{{ URL::asset('assets/src/leaflet.draw.css')}}"/>  --}}
+
+
+
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+    {{-- <script src="{{ URL::asset('map/draw/leaflet.draw-custom.js')}}"></script> --}}
+    <<script src="{{ URL::asset('assets/js/leaflet.draw.js')}}"></script>
+
+    <script src="{{ URL::asset('map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js')}}"></script>
+
     <script>
-        let name =document.querySelectorAll('input[type="checkbox"]');
-        for (let index = 0; index < name.length; index++) {
-           name[index].setAttribute("disabled", "disabled")
-            
+     var center = [3.016603, 101.858382];
+    $(document).ready(function(){
+        var map = L.map('map').setView(center, 11);
+
+        // Set up the OSM layer
+        L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
+
+
+//setTimeout(function(){
+   
+
+    var drawnItems = new L.FeatureGroup();
+         
+         map.addControl(drawnItems  );
+
+
+        
+
+        let appID = $('#appID').val();
+        // alert(appID);
+            $.ajax({
+                type: "GET",
+                url: `/get-application-geom/${appID}`,
+
+                success: function(data) {
+                      // console.log(JSON.parse(data));
+                      var myLayer = L.geoJSON(JSON.parse(data));
+                    //   console.log(JSON.parse(data))
+                      $('#GeomID').val(JSON.parse(data));
+                    addNonGroupLayers(myLayer, drawnItems);
+                    map.fitBounds(myLayer.getBounds());
+                },
+            });
+
+ //},2000)
+});
+
+function addNonGroupLayers(sourceLayer, targetGroup) {
+            if (sourceLayer instanceof L.LayerGroup) {
+                sourceLayer.eachLayer(function(layer) {
+                    addNonGroupLayers(layer, targetGroup);
+                });
+            } else {
+                targetGroup.addLayer(sourceLayer);
+            }
         }
-        console.log(name);
     </script>
 @endsection
