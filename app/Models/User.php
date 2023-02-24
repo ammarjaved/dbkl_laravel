@@ -19,7 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'division',
+        'phone',
+        'address',
         'password',
         'app_user_type',
         'dbkl_user_type',

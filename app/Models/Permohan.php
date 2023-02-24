@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class infoApplicant extends Model
+class Permohan extends Model
 {
     use HasFactory;
-    protected $table = 'tbl_application';
+    protected $table = 'tbl_applicant_info';
     public $timestamps = false;
     protected $fillable = [
-        'ref_num',
         'cabel_length',
         'type_application',
         'name_of_applicant',
@@ -20,7 +19,6 @@ class infoApplicant extends Model
         'address',
         'parlimen',
         'road_involved',
-        'division',
-        'created_by'
+        'division'
     ];
 }

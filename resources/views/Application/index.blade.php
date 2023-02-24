@@ -100,7 +100,7 @@
                                 <td>{{ $application->telephone_no }}</td>
                                 <td>{{ $application->company_name }}</td>
                                 <td>{{ $application->name_of_applicant }}</td>
-                                <td>{{ $application->digout_area }}</td>
+                                <td>{{ $application->division }}</td>
                                 <td class="text-center p-1">
                                     <div class="dropdown">
                                         <button class="btn" type="button" id="dropdownMenuButton1"

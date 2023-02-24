@@ -53,13 +53,35 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="fullname" class="form-label">Username</label>
-                                    <input class="form-control" type="text" name="name" id="fullname" placeholder="Enter your name" required>
+                                    <label for="usename" class="form-label">Username</label>
+                                    <input class="form-control" type="text" name="username" id="usrname" placeholder="Enter Your Username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label">Name</label>
+                                    <input class="form-control" type="text" name="name" id="fullname" placeholder="Enter your Name" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="emailaddress" class="form-label">Email address</label>
                                     <input class="form-control" type="email" name="email" id="emailaddress" required placeholder="Enter your email" autocomplete="off">
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="division" class="form-label">Division</label>
+                                    <input class="form-control" type="text" name="division" id="division" required placeholder="Enter Your Division" autocomplete="off">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input class="form-control" type="tel" name="phone" id="phone" required placeholder="Enter Your Phone" autocomplete="off">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input class="form-control" type="text" name="address" id="address" required placeholder="Enter Your Address" autocomplete="off">
+                                </div>
+
+                               
+
 
                                 <div class="mb-3">
                                     <label for="user_type" class="form-label" >select user type</label>
@@ -83,9 +105,9 @@
                                     <label for="vendor_user_type" class="form-label" id="">Vendor type</label>
                                     <select name="vendor_user_type" id="vendor_user_type" class="form-select" >
                                         <option value="" hidden>Select Vendor type</option>
-                                        <option value=" tnb"> tnb</option>
-                                        <option value="telco">telco</option>
-                                        <option value="air">air</option>
+                                        <option value="Tenaga National Berhad"> Tenaga National Berhad</option>
+                                        <option value="Telekom Malaysia Berhad">Telekom Malaysia Berhad</option>
+                                        <option value="Air Selangor Sdn Bhd">Air Selangor Sdn Bhd</option>
                                     </select>
                                 </div>
 

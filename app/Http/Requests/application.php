@@ -24,15 +24,15 @@ class application extends FormRequest
     public function rules()
     {
         return [
-        'ref_num'           => 'required',
-        'application_type'  => 'required',
-        'digout_area'       => 'required',
+        'cabel_length'  => 'required',
+        'type_application'       => 'required',
         'name_of_applicant' => 'required',
         'company_name'      => 'required',
         'telephone_no'      => 'required|min:9|max:11',
         'address'           => 'required',
         'parlimen'          => 'required',
-        'road_involved'     => 'required'
+        'road_involved'     => 'required',
+        'division'          => 'required' 
         ];
     }
 }

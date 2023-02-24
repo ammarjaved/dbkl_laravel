@@ -40,7 +40,7 @@
                     <li class="breadcrumb-item active">create</li>
                 </ol>
             </div>
-            <h4 class="page-title">Add Application</h4>
+            <h4 class="page-title">Edit  Application Details</h4>
         </div>
     </div>
 </div>
@@ -50,7 +50,7 @@
 
     <div class="card p-3 ">
 
-        <h3 class="text-center">Applicaiton</h3>
+        <h3 class="text-center">Permohonan</h3>
         <form action="{{ route('application.update', $app->id) }}" method="POST">
             @method('PATCH')
             @csrf
@@ -63,14 +63,33 @@
                 </span></div>
             <div class="col-md-5"><input type="text" class="form-control" name="ref_num" id="ref_num" value="{{old('ref_num', $app->ref_num)}}"></div>
         </div>
+
         <div class="row p-3 pb-0">
-            <div class="col-md-4"><label for="application_type">Panjang kabel</label><br>
+            <div class="col-md-4"><label for="type_application">Jenis Permohonan</label><br>
                 <span class="text-danger">
-                    @error('application_type')
+                    @error('type_application')
                         {{ $message }}
                     @enderror
-                </span></div>
-            <div class="col-md-5"><input type="text" class="form-control" name="application_type" id="application_type" value="{{old('application_type', $app->application_type)}}"></div>
+                </span>
+            </div>
+            <div class="col-md-3"><input type="text"
+                    class="form-control @error('type_application') is-invalid @enderror" name="type_application"
+                    id="type_application" value="{{old('type_application', $app->type_application)}}"></div>
+        </div>
+
+
+        <div class="row p-3 pb-0">
+            <div class="col-md-4"><label for="cabel_length">Panjang kabel</label><br>
+                <span class="text-danger">
+                    @error('cabel_length')
+                        {{ $message }}
+                    @enderror
+                </span>
+            </div>
+            <div class="col-md-3"><input type="text"
+                    class="form-control @error('cabel_length') is-invalid @enderror" name="cabel_length"
+                    id="cabel_length" value="{{ old('cabel_length', $app->cabel_length) }}"></div>
+            <div class="col-md-1 pt-2 text-center">Meter</div>
         </div>
 
         <div  class="row p-3 pb-0">
@@ -78,13 +97,13 @@
             <input type="hidden" name="geom" id="geomID" value="{{old('geom')}}">
         </div>    
         <div class="row p-3 pb-0">
-            <div class="col-md-4"><label for="digout_area">Nama Division</label><br>
+            <div class="col-md-4"><label for="division">Nama Division</label><br>
                 <span class="text-danger">
-                    @error('digout_area')
+                    @error('division')
                         {{ $message }}
                     @enderror
                 </span></div>
-            <div class="col-md-5"><input type="text" class="form-control" name="digout_area" id="digout_area" value="{{old('digout_area', $app->digout_area)}}"></div>
+            <div class="col-md-5"><input type="text" class="form-control" name="division" id="division" value="{{old('division', $app->division)}}"></div>
         </div>
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="name_of_applicant">Nama Pemohon</label><br>
@@ -278,7 +297,22 @@
             var data = layer.toGeoJSON();
              console.log(JSON.stringify(data.geometry));
              $('#geomID').val(JSON.stringify(data.geometry));
-          //  $('#layer').val(JSON.stringify(data.geometry));
+          //  $('#layer').val(JSON.stringify(data.geometry))
+             if (e.layerType = 'polyline') {
+                    var coords = layer.getLatLngs();
+                    var length = 0;
+                    for (var i = 0; i < coords.length - 1; i++) {
+                    length += coords[i].distanceTo(coords[i + 1]);
+                    }
+                    $("#cabel_length").val(parseInt(length))
+                    if(length<=200){
+                        $("#type_application").val('KURANG DARI 200 METER')
+                    }else if(length>200&&length<300){
+                        $("#type_application").val('LEBIH DARI 200 METER')
+                    }else{
+                        $("#type_application").val('KECEMASAN')
+                    }
+            }
 
         })
 
@@ -290,6 +324,21 @@
                 // console.log(layer);
   
                 $('#geomID').val(layer);
+                if (e.layerType = 'polyline') {
+                    var coords = layer.getLatLngs();
+                    var length = 0;
+                    for (var i = 0; i < coords.length - 1; i++) {
+                    length += coords[i].distanceTo(coords[i + 1]);
+                    }
+                    $("#cabel_length").val(parseInt(length))
+                    if(length<=200){
+                        $("#type_application").val('KURANG DARI 200 METER')
+                    }else if(length>200&&length<300){
+                        $("#type_application").val('LEBIH DARI 200 METER')
+                    }else{
+                        $("#type_application").val('KECEMASAN')
+                    }
+            }
                
             });
         });

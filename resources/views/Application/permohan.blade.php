@@ -55,7 +55,9 @@
             <h3 class="text-center">Permohonan</h3>
             <form action="{{ route('application.store') }}" method="POST">
                 @csrf
-               
+                <div class="text-center p-4"><button class=" ladda-button btn btn-success btn-sm" dir="ltr"
+                    data-style="zoom-out">Submit</button></div>
+        </form>
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="type_application">Jenis Permohonan</label><br>
                         <span class="text-danger">
@@ -229,9 +231,7 @@
                             id="road_involved"  rows="7">{{ old('road_involved') }}</textarea></div>
                 </div>
 
-                <div class="text-center p-4"><button class=" ladda-button btn btn-success btn-sm" dir="ltr"
-                    data-style="zoom-out">Submit</button></div>
-        </form>
+               
         </div>
 
 

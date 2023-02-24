@@ -9,7 +9,8 @@ use App\Models\OwnerInfo;
 use App\Models\Permit;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;                          
+use Illuminate\Support\Facades\Auth;
 
 class application extends Controller
 {
@@ -20,7 +21,7 @@ class application extends Controller
      */
     public function index()
     {
-        $applications = infoApplicant::orderBy('id','asc')->get();
+        $applications = infoApplicant::where('created_by',Auth::user()->id)->orderBy('id','asc')->get();
 
         return view('Application.index',['applications'=>$applications]);
     }
@@ -33,7 +34,10 @@ class application extends Controller
     public function create()
     {
         //
-        return view("Application.create");
+        $user = Auth::user();
+    //    return $user->phone;
+    //     exit();
+        return view("Application.create")->with('user',$user);
     }
 
     /**
@@ -42,10 +46,30 @@ class application extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+   
+
     public function store(RequestsApplication $request)
     {   
+
+    
+        $user = Auth::user();
+        $maxid=DB::table('tbl_application')->orderBy('id', 'desc')->value('id');
+        $maxid=$maxid+1;
+        if($user->vendor_user_type=='Tenaga National Berhad'){
+            $request['ref_num']='TNB'. $maxid;
+        }
+        if($user->vendor_user_type=='Telekom Malaysia Berhad'){
+            $request['ref_num']='TELCO'.$maxid;
+        }
+        if($user->vendor_user_type=='Air Selangor Sdn Bhd'){
+            $request['ref_num']='Air'.$maxid;
+        }
+        
         $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
         $request['parlimen'] = serialize($request->parlimen);
+        $request['created_by']=  $user->id;
+
+       // return print_r($request->all());
 
         // dd($request->all());
         // dd($request->all());

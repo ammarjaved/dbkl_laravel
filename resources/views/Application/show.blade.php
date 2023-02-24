@@ -38,7 +38,7 @@
                     <li class="breadcrumb-item active">detail</li>
                 </ol>
             </div>
-            <h4 class="page-title">Add Application</h4>
+            <h4 class="page-title">View Application Details</h4>
         </div>
     </div>
 </div>
@@ -48,15 +48,21 @@
 
     <div class="card p-3 ">
 
-        <h3 class="text-center">Applicaiton</h3>
+        <h3 class="text-center">Permohonan</h3>
 
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="ref_num">Nombor Rujukan Utiliti</label></div>
             <div class="col-md-5"><input type="text" class="form-control" value="{{$app->ref_num}}" disabled></div>
         </div>
+
+        <div class="row p-3 pb-0">
+            <div class="col-md-4"><label for="application_type">Jenis Permohonan</label></div>
+            <div class="col-md-5"><input type="text" class="form-control"  value="{{$app->type_application}}" disabled></div>
+        </div>
+
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="application_type">Panjang kabel</label></div>
-            <div class="col-md-5"><input type="text" class="form-control"  value="{{$app->application_type}}" disabled></div>
+            <div class="col-md-5"><input type="text" class="form-control"  value="{{$app->cabel_length}}" disabled></div>
         </div>
 
         <div  class="row p-3 pb-0">
@@ -65,7 +71,7 @@
         </div>    
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="digout_area">Nama Division</label></div>
-            <div class="col-md-5"><input type="text" class="form-control" disabled value="{{$app->digout_area}}"></div>
+            <div class="col-md-5"><input type="text" class="form-control" disabled value="{{$app->division}}"></div>
         </div>
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="name_of_applicant">Nama Pemohon</label></div>

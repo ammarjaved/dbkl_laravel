@@ -35,8 +35,10 @@ class AuthenticatedSessionController extends Controller
         // $request->session()->regenerate();
 
         $input = $request->all();
+        // return print_r($input);
+        // exit();
 
-        if ( auth()->attempt(['name' => $input['name'], 'password' => $input['password']])) {
+        if ( auth()->attempt(['username' => $input['name'], 'password' => $input['password']])) {
 
             return redirect()->route('application.index');
             }
