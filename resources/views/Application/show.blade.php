@@ -42,7 +42,7 @@
         </div>
     </div>
 </div>
-
+<div class="row">
 
 <div class="container col-md-12">
 
@@ -57,7 +57,12 @@
 
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="application_type">Jenis Permohonan</label></div>
-            <div class="col-md-5"><input type="text" class="form-control"  value="{{$app->type_application}}" disabled></div>
+            <div class="col-md-5">
+                <div class="row mb-2">
+                    <div class="col-md-6"><input type="radio" name="work_type" id="emergency" value="emergency" {{old('work_type',$app->work_type) == "emergency" ? 'checked' : ''}} disabled><label for="emergency"  >Kecemasan</label></div>
+                    <div class="col-md-6"><input type="radio" name="work_type" id="normal" value="normal" {{old('work_type',$app->work_type) == "normal" ? 'checked' : ''}} disabled ><label for="normal"  >Biasa</label></div>
+                </div>
+                <input type="text" class="form-control"  value="{{$app->type_application}}" disabled></div>
         </div>
 
         <div class="row p-3 pb-0">
@@ -161,7 +166,7 @@
 
 
 </div>
-
+</div>
 
 @endsection
 

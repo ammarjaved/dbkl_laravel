@@ -4,49 +4,7 @@
     <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <style>
-        .loader {
-            position: absolute;
-            width: 220px;
-            height: 19px;
-            top: 50%;
-            left: 50%;
-            margin: -10px 0 0 -110px;
-            z-index: 20001;
-        }
-
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite;
-            /* Safari */
-            animation: spin 2s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+    
 @endsection
 
 @section('content')
@@ -64,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="loader"></div>
+   
     <div class="row">
         <div class="col-12">
             <div class="card ">
@@ -75,7 +33,7 @@
                     @endif
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" style="height : 60vh">
                     <h4 class="header-title">Applications</h4>
                     {{-- <p class="text-muted font-13 mb-4">
                     DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction

@@ -32,12 +32,12 @@
 @endsection
 
 @section('content')
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-12">
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        {{-- <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                       <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
                         <li class="breadcrumb-item"><a href="#">Application</a></li>
                         <li class="breadcrumb-item active">create</li>
                     </ol>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
- --}}
+    <div class="row">
 
     <div class="container col-md-12">
 
@@ -64,9 +64,21 @@
                             @enderror
                         </span>
                     </div>
-                    <div class="col-md-3"><input type="text"
+                    <div class="col-md-5">
+
+                        <div class="row mb-2">
+                            <div class="col-md-6"><input type="radio" name="work_type" id="emergency" value="emergency" {{old('work_type') == "emergency" ? 'checked' : ''}} onclick="changeTypeApplication('emergency')"><label for="emergency" onclick="changeTypeApplication('emergency')">Kecemasan</label></div>
+                            <div class="col-md-6"><input type="radio" name="work_type" id="normal" value="normal" {{old('work_type') == "normal" ? 'checked' : ''}} onclick="changeTypeApplication('normal')"><label for="normal" onclick="changeTypeApplication('normal')">Biasa</label></div>
+                        </div>
+                        
+                        {{-- <input type="text"
                             class="form-control @error('type_application') is-invalid @enderror" name="type_application"
-                            id="type_application" value="{{ old('type_application') }}"></div>
+                            id="type_application" value="{{ old('type_application') }}"> --}}
+
+                            <select name="type_application" id="type_application" class="form-select @error('type_application') is-invalid @enderror">
+                                
+                            </select>
+                        </div>
                 </div>
 
                 <div class="row p-3 pb-0">
@@ -236,6 +248,7 @@
 
 
     </div>
+    </div>
 @endsection
 
 
@@ -317,13 +330,13 @@
                     length += coords[i].distanceTo(coords[i + 1]);
                     }
                     $("#cabel_length").val(parseInt(length))
-                    if(length<=200){
-                        $("#type_application").val('KURANG DARI 200 METER')
-                    }else if(length>200&&length<300){
-                        $("#type_application").val('LEBIH DARI 200 METER')
-                    }else{
-                        $("#type_application").val('KECEMASAN')
-                    }
+                    // if(length<=200){
+                    //     $("#type_application").val('KURANG DARI 200 METER')
+                    // }else if(length>200&&length<300){
+                    //     $("#type_application").val('LEBIH DARI 200 METER')
+                    // }else{
+                    //     $("#type_application").val('KECEMASAN')
+                    // }
             }
           //  $('#layer').val(JSON.stringify(data.geometry));
 
@@ -349,6 +362,26 @@
             });
         });
  //},2000)
+ let params = $('input[name="work_type"]:checked').val();;
+ changeTypeApplication(params);
 });
+
+function changeTypeApplication(params) {
+    $('#type_application').find('option').remove().end();
+    if(params === 'emergency'){
+    
+       $('#type_application').append(`
+       <option value='{{old('type_application','')}}' hidden>{{old('type_application','Select Jenis Permohonan')}}</option>
+       <option value='KURANG DARI 200 METER KECEMASAN'>KURANG DARI 200 METER KECEMASAN</option>
+       <option value='LEBIH DARI 200 METER KECEMASAN'>LEBIH DARI 200 METER KECEMASAN</option>`);
+    }
+    if(params === 'normal'){
+    
+    $('#type_application').append(`
+    <option value="{{old('type_application','')}}" hidden>{{old('type_application','Select Jenis Permohonan')}}</option>
+    <option value='KURANG DARI 200 METER'  }}>KURANG DARI 200 METER</option>
+    <option value='LEBIH DARI 200 METER'>LEBIH DARI 200 METER</option>`);
+ }
+}
     </script>
 @endsection

@@ -21,6 +21,7 @@ class infoApplicant extends Model
         'parlimen',
         'road_involved',
         'division',
-        'created_by'
+        'created_by',
+        'work_type',
     ];
 }

@@ -37,7 +37,7 @@
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
                     <li class="breadcrumb-item"><a href="#">Application</a></li>
-                    <li class="breadcrumb-item active">create</li>
+                    <li class="breadcrumb-item active">edit</li>
                 </ol>
             </div>
             <h4 class="page-title">Edit  Application Details</h4>
@@ -45,7 +45,7 @@
     </div>
 </div>
 
-
+    <div class="row">
 <div class="container col-md-12">
 
     <div class="card p-3 ">
@@ -64,6 +64,7 @@
             <div class="col-md-5"><input type="text" class="form-control" name="ref_num" id="ref_num" value="{{old('ref_num', $app->ref_num)}}"></div>
         </div>
 
+
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="type_application">Jenis Permohonan</label><br>
                 <span class="text-danger">
@@ -72,9 +73,14 @@
                     @enderror
                 </span>
             </div>
-            <div class="col-md-3"><input type="text"
-                    class="form-control @error('type_application') is-invalid @enderror" name="type_application"
-                    id="type_application" value="{{old('type_application', $app->type_application)}}"></div>
+            <div class="col-md-5">
+                <div class="row mb-2">
+                    <div class="col-md-6"><input type="radio" name="work_type" id="emergency" value="emergency" {{old('work_type',$app->work_type) == "emergency" ? 'checked' : ''}} onclick="changeTypeApplication('emergency')"><label for="emergency" onclick="changeTypeApplication('emergency')">Kecemasan</label></div>
+                    <div class="col-md-6"><input type="radio" name="work_type" id="normal" value="normal" {{old('work_type',$app->work_type) == "normal" ? 'checked' : ''}} onclick="changeTypeApplication('normal')"><label for="normal" onclick="changeTypeApplication('normal')">Biasa</label></div>
+                </div>
+                <select name="type_application" id="type_application" class="form-select @error('type_application') is-invalid @enderror">
+                                
+                </select>
         </div>
 
 
@@ -220,7 +226,7 @@
 
 
 </div>
-
+</div>
 
 @endsection
 
@@ -305,13 +311,13 @@
                     length += coords[i].distanceTo(coords[i + 1]);
                     }
                     $("#cabel_length").val(parseInt(length))
-                    if(length<=200){
-                        $("#type_application").val('KURANG DARI 200 METER')
-                    }else if(length>200&&length<300){
-                        $("#type_application").val('LEBIH DARI 200 METER')
-                    }else{
-                        $("#type_application").val('KECEMASAN')
-                    }
+                    // if(length<=200){
+                    //     $("#type_application").val('KURANG DARI 200 METER')
+                    // }else if(length>200&&length<300){
+                    //     $("#type_application").val('LEBIH DARI 200 METER')
+                    // }else{
+                    //     $("#type_application").val('KECEMASAN')
+                    // }
             }
 
         })
@@ -321,23 +327,25 @@
             layers.eachLayer(function(data) {
                 let layer_d = data.toGeoJSON();
                 let layer = JSON.stringify(layer_d.geometry);
+                $('#geomID').val(JSON.stringify(layer_d.geometry));
                 // console.log(layer);
   
                 $('#geomID').val(layer);
                 if (e.layerType = 'polyline') {
-                    var coords = layer.getLatLngs();
+                    var coords = data.getLatLngs();
                     var length = 0;
                     for (var i = 0; i < coords.length - 1; i++) {
                     length += coords[i].distanceTo(coords[i + 1]);
                     }
+                    console.log(length);
                     $("#cabel_length").val(parseInt(length))
-                    if(length<=200){
-                        $("#type_application").val('KURANG DARI 200 METER')
-                    }else if(length>200&&length<300){
-                        $("#type_application").val('LEBIH DARI 200 METER')
-                    }else{
-                        $("#type_application").val('KECEMASAN')
-                    }
+                    // if(length<=200){
+                    //     $("#type_application").val('KURANG DARI 200 METER')
+                    // }else if(length>200&&length<300){
+                    //     $("#type_application").val('LEBIH DARI 200 METER')
+                    // }else{
+                    //     $("#type_application").val('KECEMASAN')
+                    // }
             }
                
             });
@@ -368,6 +376,8 @@
             });
 
  //},2000)
+ let params = $('input[name="work_type"]:checked').val();;
+ changeTypeApplication(params,"old");
 });
 
 function addNonGroupLayers(sourceLayer, targetGroup) {
@@ -379,5 +389,31 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
                 targetGroup.addLayer(sourceLayer);
             }
         }
+
+
+
+        
+function changeTypeApplication(params,val) {
+    $('#type_application').find('option').remove().end();
+    if(params === 'emergency'){
+   if(val === "old"){ 
+       $('#type_application').append(`<option value='{{old('type_application',$app->type_application)}}' hidden>{{old('type_application',$app->type_application)}}</option>`)
+   }else{
+    $('#type_application').append(` <option value='{{old('type_application','')}}' hidden>{{old('type_application','Select Jenis Permohonan')}}</option>`)
+   }
+       $('#type_application').append(`<option value='KURANG DARI 200 METER KECEMASAN'>KURANG DARI 200 METER KECEMASAN</option>
+       <option value='LEBIH DARI 200 METER KECEMASAN'>LEBIH DARI 200 METER KECEMASAN</option>`);
+    }
+    if(params === 'normal'){
+     if(val === "old"){ 
+       $('#type_application').append(`<option value='{{old('type_application',$app->type_application)}}' hidden>{{old('type_application',$app->type_application)}}</option>`)
+   }else{
+    $('#type_application').append(` <option value='{{old('type_application','')}}' hidden>{{old('type_application','Select Jenis Permohonan')}}</option>`)
+   }
+    $('#type_application').append(`
+    <option value='KURANG DARI 200 METER'  }}>KURANG DARI 200 METER</option>
+    <option value='LEBIH DARI 200 METER'>LEBIH DARI 200 METER</option>`);
+ }
+}
     </script>
 @endsection

@@ -32,7 +32,8 @@ class application extends FormRequest
         'address'           => 'required',
         'parlimen'          => 'required',
         'road_involved'     => 'required',
-        'division'          => 'required' 
+        'division'          => 'required' ,
+        'work_type'         => 'required'
         ];
     }
 }

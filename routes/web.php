@@ -34,7 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
     
 });
 
-
+Route::get('password-check/{val}',function($val){
+    return $val;
+});
 
 Route::group(['prefix' => '/'], function () {
     Route::get('', [RoutingController::class, 'index'])->name('root');

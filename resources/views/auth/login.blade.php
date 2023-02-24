@@ -8,11 +8,45 @@
 
 </head>
 
+<style>
+
+    body{
+        background-image: url('/assets/images/background.jpg') !important;
+        background-size: cover;
+    }
+    .card{
+        background-color: rgb(255, 255, 255,0.5) !important ;
+    }
+    label{color: black}
+    input.form-control {
+    background: #E6E7E9;
+    padding: 20px 15px;
+    border: 1px solid #C3C4C8;
+    border-radius: 5px;
+}
+.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;}
+     .btn {
+    /* background: url(../images/login-btn.png) no-repeat; */
+    width: 208px;
+    margin: 30px auto 0;
+    border: 0;
+}
+ @media only screen and (max-width: 500px) {
+    .logo-lg img{
+        height: 50px;
+    }
+ }
+</style>
+
+
 <body class="loading authentication-bg authentication-bg-pattern">
 
     <div class="account-pages mt-5 mb-5">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-start">
                 <div class="col-md-8 col-lg-6 col-xl-4">
                     <div class="card bg-pattern">
 
@@ -20,19 +54,19 @@
 
                             <div class="text-center w-75 m-auto">
                                 <div class="auth-logo">
-                                    <a href="{{route('any', 'index')}}" class="logo logo-dark text-center">
+                                    <a href="#" class="logo logo-dark text-center">
                                         <span class="logo-lg">
-                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="35">
+                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="85">
                                         </span>
                                     </a>
 
-                                    <a href="{{route('any', 'index')}}" class="logo logo-light text-center">
+                                    <a href="#" class="logo logo-light text-center">
                                         <span class="logo-lg">
                                             <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="22">
                                         </span>
                                     </a>
                                 </div>
-                                <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p>
+                                {{-- <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p> --}}
                             </div>
 
 
@@ -53,20 +87,20 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
-                                <div class="mb-3">
-                                    <label for="emailaddress" class="form-label">Username</label>
-                                    <input class="form-control" type="text" name="name" id="emailaddress" required="" placeholder="Enter your username">
+                                <div class="mb-3 mt-4">
+                                    {{-- <label for="emailaddress" class="form-label">Username</label> --}}
+                                    <input class="form-control" type="text" name="name" id="emailaddress" required="" placeholder="Username">
                                 </div>
                                 
                                 
 
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
+                                    {{-- <label for="password" class="form-label ">Password</label> --}}
                                     <div class="input-group input-group-merge">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
-                                        <div class="input-group-text" data-password="false">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                        {{-- <div class="input-group-text" data-password="false">
                                             <span class="password-eye"></span>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
 

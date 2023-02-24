@@ -331,7 +331,7 @@
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="{{Auth::user()->type== 'superAdmin' ? '/admin-dashboard' :'/dashboard' }}" class="logo logo-dark text-center">
+            <a href="/application" class="logo logo-dark text-center">
                 <span class="logo-sm">
                     <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -342,7 +342,7 @@
                 </span>
             </a>
 
-            <a href="{{Auth::user()->type== 'superAdmin' ? '/admin-dashboard' :'/dashboard' }}" class="logo logo-light text-center">
+            <a href="/application" class="logo logo-light text-center">
                 <span class="logo-sm">
                     <img src="{{asset('images/main-logo-sm.png')}}" alt="" height="35">
                 </span>
@@ -523,3 +523,58 @@
     </div>
 </div>
 <!-- end Topbar -->
+
+<style>
+    body[data-sidebar-size=condensed] .left-side-menu {display: none !important}
+    ul.sidebar-menu {
+    margin-top: 80px;
+    margin-left: 20px;
+    background-color: #1a3869;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}.sidebar-menu {
+    list-style: none;}
+    ul.sidebar-menu li.logo {
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+    height: auto;
+}ul li {
+    list-style: none;
+}
+ul.sidebar-menu li.active, ul.sidebar-menu li:hover, ul.sidebar-menu li:focus {
+    /* background: #9d1e07; */
+    cursor: pointer;}
+    ul.nav-second-level {
+    padding: 0px;
+}
+li{
+    border-bottom: 1px solid white;
+}
+p.text-center {
+    font-size: 33px;
+    padding: 0px;
+    line-height: initial;
+    color: white;
+    margin-bottom: 0px;
+}
+span.text-white.ml-3 {
+    padding: 0px 23px;
+    font-size: 16px;
+}
+.card-body.left-sidebar {
+    margin-top: 80px;
+    margin-left: 20px;
+    background-color: #1a3869;
+}
+.nav-second-level li a {
+    padding:11px 11px !important;
+     }.left-side-menu.menuitem-active {
+    background-color: #F4F5F7 !important;
+    box-shadow: none;
+}.card.ml-3.show {
+    background-color: #F3F4F6;
+}
+  
+</style>
