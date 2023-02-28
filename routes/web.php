@@ -5,6 +5,7 @@ use App\Http\Controllers\ApplicationGeom;
 use App\Http\Controllers\PermitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
+use App\Http\Controllers\mapController;
 
 
 /*
@@ -31,8 +32,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('application',application::class);
     Route::resource('permohan',permohanController::class);
     Route::get('get-application-geom/{id}',[ApplicationGeom::class,'getGeom']);
+
+    Route::group(['middleware' => 'dbkl'], function () {
+        Route::get('getmap',[mapController::class,'index']);
+    });
+    
     
 });
+
 
 Route::get('password-check/{val}',function($val){
     return $val;

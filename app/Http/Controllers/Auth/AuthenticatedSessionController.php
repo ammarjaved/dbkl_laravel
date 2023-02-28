@@ -40,7 +40,12 @@ class AuthenticatedSessionController extends Controller
 
         if ( auth()->attempt(['username' => $input['name'], 'password' => $input['password']])) {
 
+            if(Auth::user()->app_user_type=='dbkl'){
+                return redirect('getmap');
+            }else{
+
             return redirect()->route('application.index');
+            }
             }
             else{
                 throw ValidationException::withMessages([
