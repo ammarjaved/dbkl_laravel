@@ -41,9 +41,7 @@ class AuthenticatedSessionController extends Controller
         if ( auth()->attempt(['username' => $input['name'], 'password' => $input['password']])) {
             // dd(Auth::user()->app_user_type);
             if(Auth::user()->app_user_type == "dbkl"){
-
-            
-                 return redirect('map');
+                 return redirect('getmap');
             }else{
 
             if(Auth::user()->app_user_type=='dbkl'){
@@ -53,12 +51,13 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('application.index');
             }
             }
-            else{
-                throw ValidationException::withMessages([
-                    'email' => __('auth.failed'),
-                ]);
-            }
+            // else{
+            //     throw ValidationException::withMessages([
+            //         'email' => __('auth.failed'),
+            //     ]);
+            // }
     }
+}
 
     /**
      * Destroy an authenticated session.

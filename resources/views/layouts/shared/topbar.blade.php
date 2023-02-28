@@ -570,10 +570,12 @@ span.text-white.ml-3 {
 }
 .nav-second-level li a {
     padding:11px 11px !important;
-     }.left-side-menu.menuitem-active {
+     }
+.left-side-menu.menuitem-active {
     background-color: #F4F5F7 !important;
     box-shadow: none;
-}.card.ml-3.show {
+}
+.card.ml-3.show {
     background-color: #F3F4F6;
 }
   

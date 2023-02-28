@@ -26,14 +26,25 @@ class ApplicationGeom extends Controller
 
     public function getallGeom()
     {
-        $geom = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
-        'properties', json_build_object(
-  'id', id,
+
+        $sql="SELECT json_build_object('type', 'FeatureCollection','crs', json_build_object('type','name', 'properties', 
+        json_build_object('name', 'EPSG:4326' )),'features', json_agg(json_build_object('type','Feature','application_id',application_id,'geometry',
+        ST_AsGeoJSON(geom)::json, 'properties', json_build_object( 
         'application_id',application_id,
-        'geom',geom
-    
-        )))) as geojson
-        FROM ( select id , application_id , geom from application_geom_info ) as tbl1");
+        'cabel_length',cabel_length,
+        'type_application',type_application,
+        'name_of_applicant',name_of_applicant,
+        'company_name',company_name,
+        'address',company_name,
+        'parlimen',	parlimen,
+        'road_involved',road_involved,
+        'division',	division,
+        'telephone_no',telephone_no,	
+        'geom',geom )))) as geojson 
+        FROM ( select cabel_length, type_application, name_of_applicant, company_name, address, parlimen, road_involved,
+              division, telephone_no,application_id,geom from tbl_application a,application_geom_info b where a.id=b.application_id ) as tbl1";
+       
+        $geom = DB::select( $sql);
          return $geom[0]->geojson;
     }
 }
