@@ -39,6 +39,12 @@ class AuthenticatedSessionController extends Controller
         // exit();
 
         if ( auth()->attempt(['username' => $input['name'], 'password' => $input['password']])) {
+            // dd(Auth::user()->app_user_type);
+            if(Auth::user()->app_user_type == "dbkl"){
+
+            
+                 return redirect('map');
+            }else{
 
             if(Auth::user()->app_user_type=='dbkl'){
                 return redirect('getmap');

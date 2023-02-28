@@ -179,7 +179,11 @@ class application extends Controller
     public function destroy($id)
     {
         try{
-           infoApplicant::find($id)->delete();
+          $application =  infoApplicant::find($id);
+          if($application){
+            DB::select("DELETE FROM application_geom_info where application_id = $application->id");
+            $application->delete();
+          }
         }catch(Exception $e){
             return redirect()->back()->with('message','something is worng try again later');
         }

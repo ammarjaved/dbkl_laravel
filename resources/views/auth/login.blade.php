@@ -15,7 +15,7 @@
         background-size: cover;
     }
     .card{
-        background-color: rgb(255, 255, 255,0.5) !important ;
+        background-color: rgb(209, 186, 81,0.8) !important ;
     }
     label{color: black}
     input.form-control {
@@ -56,7 +56,7 @@
                                 <div class="auth-logo">
                                     <a href="#" class="logo logo-dark text-center">
                                         <span class="logo-lg">
-                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="85">
+                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="75" width="200">
                                         </span>
                                     </a>
 
