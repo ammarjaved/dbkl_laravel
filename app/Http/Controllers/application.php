@@ -68,20 +68,22 @@ class application extends Controller
         }
 
 
-        if($request->before_image != ""){
-            $file                   =   $request->file('before_image');                
+        if($request->before_image1 != ""){
+                 $file                   =   $request->file('before_image1');                
                 $img4_loccap            =   $file->getClientOriginalExtension() ;
                 $filename               =  'Permit-'.$request->ref_num.'-before-image-'.  strtotime(now()) .'.' . $img4_loccap;
-                                            $file->move($destinationPath, $filename);
-                $request['before_image']  =  asset('asset/images/Permit') .'/'. $filename;
+                                            
+                $request['before_image']  = asset('asset/images/Permit') .'/'. $filename;
+                $file->move($destinationPath, $filename);
         }
 
-        if($request->after_image != ""){      
-            $file                   =   $request->file('after_image');                
+        if($request->after_image1 != ""){
+            $file                   =   $request->file('after_image1');                
                 $img4_loccap            =   $file->getClientOriginalExtension() ;
                 $filename               =  'Permit-'.$request->ref_num.'-after-image-'.  strtotime(now()) .'.' . $img4_loccap;
-                                            $file->move($destinationPath, $filename);
+                                            
                 $request['after_image']  =  asset('asset/images/Permit') .'/'. $filename;
+                $file->move($destinationPath, $filename);
         }
         
         // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;

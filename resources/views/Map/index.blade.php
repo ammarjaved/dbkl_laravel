@@ -417,6 +417,14 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
                         <th>Cabel Length</th>
                         <td>${sourceLayer.feature.properties.cabel_length}</td>
                         </tr>
+                        <tr>
+                        <th>Before Image</th>
+                        <td><img src="${sourceLayer.feature.properties.before_image}" width="50px" height="50px"/></td>
+                        </tr>
+                        <tr>
+                        <th>After Image</th>
+                        <td><img src="${sourceLayer.feature.properties.after_image}" width="50px" height="50px"/></td>
+                        </tr>
                     </table>`);
             }
         }
