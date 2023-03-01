@@ -67,7 +67,7 @@
                     <div class="col-md-5">
 
                         <div class="row mb-2">
-                        <div class="col-md-6"><input type="radio" name="work_type" id="normal" value="normal" {{old('work_type') == "normal" ? 'checked' : ''}} onclick="changeTypeApplication('normal')"><label for="normal" onclick="changeTypeApplication('normal')">Biasa</label></div>
+                        <div class="col-md-6"><input type="radio" name="work_type" id="normal" value="normal" {{old('work_type') == "normal" ? 'checked' : ''}} checked onclick="changeTypeApplication('normal')"><label for="normal" onclick="changeTypeApplication('normal')">Biasa</label></div>
                         <div class="col-md-6"><input type="radio" name="work_type" id="emergency" value="emergency" {{old('work_type') == "emergency" ? 'checked' : ''}} onclick="changeTypeApplication('emergency')"><label for="emergency" onclick="changeTypeApplication('emergency')">Kecemasan</label></div>
                         </div>
                         

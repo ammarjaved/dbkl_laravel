@@ -93,31 +93,11 @@
         <div class="row p-3 pb-0">
             <div class="col-md-4"><label for="address">Alamat Pemohon</label></div>
             <div class="col-md-8">
-                <div class="row">
-                    @php
-                      $address =   explode(" --",$app->address);
-                    @endphp
-                    <div class="col-md-12">
+               
+                    
                         <input type="text" class="form-control @error('address') is-invalid @enderror"
-                            name="address" id="address" value="{{ $address[0]}}" disabled>
-                    </div>
-                    <div class="col-md-12 pt-2">
-                        <input type="text" class="form-control " name="address_2" id="address_2" disabled
-                            value="{{ $address[1] }}">
-                    </div>
-                    <div class="col-md-3 pt-2">
-                        <input type="text" class="form-control " name="address_3" id="address_3" disabled
-                            value="{{ $address[2] }}">
-                    </div>
-                    <div class="col-md-3 pt-2">
-                        <input type="text" class="form-control " name="address_4" id="address_4" disabled
-                            value="{{$address[3] }}">
-                    </div>
-                    <div class="col-md-3 pt-2">
-                        <input type="text" class="form-control " name="address_5" id="address_5" disabled
-                            value="{{ $address[4]}}">
-                    </div>
-                </div>
+                            name="address" id="address" value="{{ $app->address}}" disabled>
+                    
                 {{-- <input type="text" class="form-control" disabled value="{{$app->address}}"> --}}
             </div>
         </div>
