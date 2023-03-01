@@ -337,7 +337,7 @@ L.control.layers(baseLayers, overlays).addTo(map);
 //     };
 // }
 
-
+$('.leaflet-control-attribution').append(`<img src="{{URL::asset('assets/images/legend.PNG')}}">`)
 
 $('.leaflet-control-attribution').append(`<img src="{{URL::asset('aasets/images/legend.PNG')}}">`)
       
