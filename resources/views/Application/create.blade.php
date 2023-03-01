@@ -53,7 +53,7 @@
         <div class="card p-3 ">
 
             <h3 class="text-center">Permohonan</h3>
-            <form action="{{ route('application.store') }}" method="POST">
+            <form action="{{ route('application.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                
                 <div class="row p-3 pb-0">
@@ -174,25 +174,16 @@
                                 <input type="text" class="form-control @error('address') is-invalid @enderror"
                                     name="address" id="address" value="{{$user->address}}">
                             </div>
-                            <div class="col-md-12 pt-2">
-                                <input type="text" class="form-control " name="address_2" id="address_2"
-                                    value="{{ old('addres_2') }}">
-                            </div>
-                            <div class="col-md-3 pt-2">
-                                <input type="text" class="form-control " name="address_3" id="address_3"
-                                    value="{{ old('address_3') }}">
-                            </div>
-                            <div class="col-md-3 pt-2">
-                                <input type="text" class="form-control " name="address_4" id="address_4"
-                                    value="{{ old('address_4') }}">
-                            </div>
-                            <div class="col-md-3 pt-2">
-                                <input type="text" class="form-control " name="address_5" id="address_5"
-                                    value="{{ old('address_5') }}">
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
+                <label for="before_image">Before Image</label>
+                <input type="file" name="brfore_img">
+
+                <label for="after_image">After Image</label>
+                <input type="file" name="after_img">
+
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="parlimen">Parlimen*</label><br>
                         <span class="text-danger">

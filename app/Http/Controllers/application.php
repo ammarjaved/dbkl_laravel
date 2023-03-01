@@ -51,6 +51,8 @@ class application extends Controller
     public function store(RequestsApplication $request)
     {   
 
+        $destinationPath        =   'asset/images/Users';
+        
     
         $user = Auth::user();
         $maxid=DB::table('tbl_application')->orderBy('id', 'desc')->value('id');
@@ -64,8 +66,25 @@ class application extends Controller
         if($user->vendor_user_type=='Air Selangor Sdn Bhd'){
             $request['ref_num']='Air'.$maxid;
         }
+
+
+        if($request->before_image != ""){
+            $file                   =   $request->file('before_image');                
+                $img4_loccap            =   $file->getClientOriginalExtension() ;
+                $filename               =  'Permit-'.$request->ref_num.'-before-image-'.  strtotime(now()) .'.' . $img4_loccap;
+                                            $file->move($destinationPath, $filename);
+                $request['before_image']  =  asset('asset/images/Permit') .'/'. $filename;
+        }
+
+        if($request->after_image != ""){
+            $file                   =   $request->file('after_image');                
+                $img4_loccap            =   $file->getClientOriginalExtension() ;
+                $filename               =  'Permit-'.$request->ref_num.'-after-image-'.  strtotime(now()) .'.' . $img4_loccap;
+                                            $file->move($destinationPath, $filename);
+                $request['after_image']  =  asset('asset/images/Permit') .'/'. $filename;
+        }
         
-        $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
+        // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
         $request['parlimen'] = serialize($request->parlimen);
         $request['created_by']=  $user->id;
 
@@ -157,7 +176,7 @@ class application extends Controller
     {
 
         try {
-            $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
+            // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
             $request['parlimen'] = serialize($request->parlimen);
             infoApplicant::find($id)->update($request->all());
             if($request->geom != ""){
