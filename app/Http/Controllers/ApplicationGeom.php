@@ -46,6 +46,7 @@ class ApplicationGeom extends Controller
         'geom',geom )))) as geojson 
         FROM ( select cabel_length, type_application, name_of_applicant, company_name, address, parlimen, road_involved,
               division, telephone_no,application_id,geom,before_image,after_image,status from tbl_application a,application_geom_info b where a.id=b.application_id ) as tbl1";
+              
        
         $geom = DB::select( $sql);
          return $geom[0]->geojson;

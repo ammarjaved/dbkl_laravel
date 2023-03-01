@@ -43,7 +43,7 @@
        
 
         <div  class="row p-3 pb-0">
-            <div id="map" style="padding:0px 0px 0px 0px;width: 100%;height: 500px;"></div>
+            <div id="map" style="padding:0px 0px 0px 0px;width: 100%;height: 600px;"></div>
     
         </div>    
         
@@ -328,33 +328,16 @@ L.control.layers(baseLayers, overlays).addTo(map);
          
          map.addControl(drawnItems  );
 
-         function polystyle(feature) { return {
-        fillColor: 'blue',
-        weight: 4,
-        opacity: 1,
-        color: 'green',  //Outline color
-        fillOpacity: 0.7
-    };
-}
-
-function polystyle1(feature) { return {
-        fillColor: 'green',
-        weight: 4,
-        opacity: 1,
-        color: 'green',  //Outline color
-        fillOpacity: 0.7
-    };
-}
+//          function polystyle(feature) { return {
+//         fillColor: 'blue',
+//         weight: 4,
+//         opacity: 1,
+//         color: 'green',  //Outline color
+//         fillOpacity: 0.7
+//     };
+// }
 
 
-function polystyle2(feature) { return {
-        fillColor: 'red',
-        weight: 4,
-        opacity: 1,
-        color: 'green',  //Outline color
-        fillOpacity: 0.7
-    };
-}
 
 
       
@@ -365,10 +348,94 @@ function polystyle2(feature) { return {
 
                 success: function(data) {
                       // console.log(JSON.parse(data));
-                      var myLayer = L.geoJSON(JSON.parse(data),{style:polystyle});
+                      var myLayer = L.geoJSON(JSON.parse(data),{
+                        onEachFeature: function (feature, layer) {
+                    if(feature.properties.status=='inprocess'){
+                        layer.setStyle({
+                        fillColor: 'blue',
+                        weight: 4,
+                        opacity: 1,
+                        color: 'blue',  //Outline color
+                        fillOpacity: 0.7
+                    })
+                }else if(feature.properties.status=='kiv'){
+                    layer.setStyle({
+                    fillColor: 'red',
+                    weight: 4,
+                    opacity: 1,
+                    color: 'red',  //Outline color
+                    fillOpacity: 0.7
+                })
+
+                }else{
+                    layer.setStyle({
+                    fillColor: 'green',
+                    weight: 4,
+                    opacity: 1,
+                    color: 'green',  //Outline color
+                    fillOpacity: 0.7
+                })
+                }
+
+
+                            
+                            layer.bindPopup(` <table class="table table-striped table-bordered table-condensed custom-table-css" >
+                    <tr>
+                        <th>Id</th>
+                        <td>${feature.application_id}</td>
+                        </tr>
+                        <tr>
+                        <th>Name Of Applicant</th>
+                        <td>${feature.properties.name_of_applicant}</td>
+                        </tr>
+                        <tr>
+                        <th>Company Name</th>
+                        <td>${feature.properties.company_name}</td>
+                        </tr>
+                        <tr>
+                        <th>Address</th>
+                        <td>${feature.properties.address}</td>
+                        </tr>
+                        <tr>
+                        <th>Division</th>
+                        <td>${feature.properties.division}</td>
+                        </tr>
+                        
+                        <tr>
+                        <th>Telephone</th>
+                        <td>${feature.properties.telephone_no}</td>
+                        </tr>
+                        <tr>
+                        <th>Road Involved</th>
+                        <td>${feature.properties.road_involved}</td>
+                        </tr>
+                        <tr>
+                        <th>Cabel Length</th>
+                        <td>${feature.properties.cabel_length}</td>
+                        </tr>
+
+                        <tr>
+                        <th>Status</th>
+                        <td>${feature.properties.status}</td>
+                        </tr>
+
+                        <tr>
+                        <th>Before Image</th>
+                        <td>
+                            <a href="${feature.properties.before_image}"
+                            data-lightbox="roadtrip"><img src="${feature.properties.before_image}" width="50px" height="50px"/></a></td>
+                        </tr>
+                        <tr>
+                        <th>After Image</th>
+                        <td><a href="${feature.properties.after_image}"
+                            data-lightbox="roadtrip"><img src="${feature.properties.after_image}" width="50px" height="50px"/></a></td>
+                        </tr>
+                    </table>`);
+                        }
+                      }).addTo(map);
                     //   console.log(JSON.parse(data))
-                      $('#GeomID').val(JSON.parse(data));
-                    addNonGroupLayers(myLayer, drawnItems);
+                    //   $('#GeomID').val(JSON.parse(data));
+                    // addNonGroupLayers(myLayer, drawnItems);
                  //   map.fitBounds(myLayer.getBounds());
                 },
             });
@@ -383,6 +450,33 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
                 });
             } else {
                 console.log();
+                if(sourceLayer.feature.properties.status=='inprocess'){
+                    sourceLayer.setStyle({
+                        fillColor: 'blue',
+                        weight: 4,
+                        opacity: 1,
+                        color: 'blue',  //Outline color
+                        fillOpacity: 0.7
+                    })
+                }else if(sourceLayer.feature.properties.status=='kiv'){
+                    sourceLayer.setStyle({
+                    fillColor: 'red',
+                    weight: 4,
+                    opacity: 1,
+                    color: 'red',  //Outline color
+                    fillOpacity: 0.7
+                })
+
+                }else{
+                    sourceLayer.setStyle({
+                    fillColor: 'green',
+                    weight: 4,
+                    opacity: 1,
+                    color: 'green',  //Outline color
+                    fillOpacity: 0.7
+                })
+                }
+                
                 targetGroup.addLayer(sourceLayer).bindPopup(` <table class="table table-striped table-bordered table-condensed custom-table-css" >
                     <tr>
                         <th>Id</th>
@@ -417,6 +511,12 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
                         <th>Cabel Length</th>
                         <td>${sourceLayer.feature.properties.cabel_length}</td>
                         </tr>
+
+                        <tr>
+                        <th>Status</th>
+                        <td>${sourceLayer.feature.properties.status}</td>
+                        </tr>
+
                         <tr>
                         <th>Before Image</th>
                         <td>
