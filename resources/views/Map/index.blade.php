@@ -59,6 +59,8 @@
     </div>
     <div id="container_pie1" class=" col-md-6">
     </div>
+    <div id="container3" class=" col-md-12">
+    </div>
    </div> 
 
 
@@ -184,15 +186,85 @@ function venderpie(){
         data: [{
             name: 'TNB',
             y: 76,
+            color:'green',
             sliced: true,
             selected: true
         },  {
             name: 'Air Selengor',
+            color:'red',
             y: 12
         },  {
             name: 'Telco',
+            color:'yellow',
             y: 12
         }]
+    }]
+});
+}
+
+function barChart(){
+    Highcharts.chart('container3', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly Average Companies  Applications'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'no of applications per month'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'TNB',
+        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
+            194.1, 95.6, 54.4]
+
+    }, {
+        name: 'TELCO',
+        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
+            106.6, 92.3]
+
+    }, {
+        name: 'AIR Selengor',
+        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3,
+            51.2]
+
     }]
 });
 }
@@ -204,7 +276,8 @@ function venderpie(){
         var map = L.map('map').setView(center, 8);
         // Set up the OSM layer
         addpie();
-        venderpie()
+        venderpie();
+        barChart();
         var street = L.tileLayer(
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18
@@ -268,6 +341,26 @@ L.control.layers(baseLayers, overlays).addTo(map);
         fillOpacity: 0.7
     };
 }
+
+function polystyle1(feature) { return {
+        fillColor: 'green',
+        weight: 4,
+        opacity: 1,
+        color: 'green',  //Outline color
+        fillOpacity: 0.7
+    };
+}
+
+
+function polystyle2(feature) { return {
+        fillColor: 'red',
+        weight: 4,
+        opacity: 1,
+        color: 'green',  //Outline color
+        fillOpacity: 0.7
+    };
+}
+
 
       
         // alert(appID);
