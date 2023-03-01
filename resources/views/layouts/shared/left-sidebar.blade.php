@@ -116,7 +116,7 @@
                                 </li>
                                 <li>
                                    
-                                    <a href="{{ route('application.index') }}">  <p class="text-center"><i class="mdi mdi-format-list-text"></i></p> <span class="text-white">Show </span></a>
+                                    <a href="{{ route('application.index') }}">  <p class="text-center"><i class="mdi mdi-format-list-text"></i></p> <span class="text-white">Show Application</span></a>
                                 </li>
 
                             </ul>
