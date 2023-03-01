@@ -94,6 +94,7 @@ class application extends Controller
         // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
         $request['parlimen'] = serialize($request->parlimen);
         $request['created_by']=  $user->id;
+        $request['status']=  'inprocess';
 
        // return print_r($request->all());
 

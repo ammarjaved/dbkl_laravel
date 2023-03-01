@@ -24,6 +24,7 @@ class infoApplicant extends Model
         'created_by',
         'work_type',
         'before_image',
-        'after_image'
+        'after_image',
+        'status'
     ];
 }
