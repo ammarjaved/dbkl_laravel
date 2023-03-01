@@ -419,11 +419,14 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
                         </tr>
                         <tr>
                         <th>Before Image</th>
-                        <td><img src="${sourceLayer.feature.properties.before_image}" width="50px" height="50px"/></td>
+                        <td>
+                            <a href="${sourceLayer.feature.properties.before_image}"
+                            data-lightbox="roadtrip"><img src="${sourceLayer.feature.properties.before_image}" width="50px" height="50px"/></a></td>
                         </tr>
                         <tr>
                         <th>After Image</th>
-                        <td><img src="${sourceLayer.feature.properties.after_image}" width="50px" height="50px"/></td>
+                        <td><a href="${sourceLayer.feature.properties.after_image}"
+                            data-lightbox="roadtrip"><img src="${sourceLayer.feature.properties.after_image}" width="50px" height="50px"/></a></td>
                         </tr>
                     </table>`);
             }
