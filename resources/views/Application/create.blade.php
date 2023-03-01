@@ -179,10 +179,10 @@
                     </div>
                 </div>
                 <label for="before_image">Before Image</label>
-                <input type="file" name="brfore_img">
+                <input type="file" name="brfore_image">
 
                 <label for="after_image">After Image</label>
-                <input type="file" name="after_img">
+                <input type="file" name="after_image">
 
                 <div class="row p-3 pb-0">
                     <div class="col-md-4"><label for="parlimen">Parlimen*</label><br>
