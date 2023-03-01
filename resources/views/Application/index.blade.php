@@ -33,7 +33,7 @@
                     @endif
                 </div>
 
-                <div class="card-body" style="height : 60vh">
+                <div class="card-body" >
                     <h4 class="header-title">Applications</h4>
                     {{-- <p class="text-muted font-13 mb-4">
                     DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
@@ -49,7 +49,9 @@
                                 <th>Nama Syarikat</th>
                                 <th>Nama Pemohon</th>
                                 <th>Nama Division</th>
+                                @if (Auth::user()->app_user_type != "dbkl")
                                 <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         @foreach ($applications as $application)
@@ -59,6 +61,9 @@
                                 <td>{{ $application->company_name }}</td>
                                 <td>{{ $application->name_of_applicant }}</td>
                                 <td>{{ $application->division }}</td>
+                                @if (Auth::user()->app_user_type != "dbkl")
+                                    
+                                
                                 <td class="text-center p-1">
                                     <div class="dropdown">
                                         <button class="btn" type="button" id="dropdownMenuButton1"
@@ -97,6 +102,7 @@
                                         </ul>
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                         <tbody>

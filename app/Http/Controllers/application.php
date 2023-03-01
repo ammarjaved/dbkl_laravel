@@ -51,7 +51,7 @@ class application extends Controller
     public function store(RequestsApplication $request)
     {   
 
-        $destinationPath        =   'asset/images/Users';
+        $destinationPath        =   'asset/images/Permit';
         
     
         $user = Auth::user();
@@ -76,7 +76,7 @@ class application extends Controller
                 $request['before_image']  =  asset('asset/images/Permit') .'/'. $filename;
         }
 
-        if($request->after_image != ""){
+        if($request->after_image != ""){      
             $file                   =   $request->file('after_image');                
                 $img4_loccap            =   $file->getClientOriginalExtension() ;
                 $filename               =  'Permit-'.$request->ref_num.'-after-image-'.  strtotime(now()) .'.' . $img4_loccap;

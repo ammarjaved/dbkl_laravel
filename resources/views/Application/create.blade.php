@@ -179,7 +179,7 @@
                     </div>
                 </div>
                 <label for="before_image">Before Image</label>
-                <input type="file" name="brfore_image">
+                <input type="file" name="before_image">
 
                 <label for="after_image">After Image</label>
                 <input type="file" name="after_image">

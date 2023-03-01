@@ -3,12 +3,7 @@
 
 @section('css')
 <style>
-   .left-side-menu{
-    display: none;
-   }
-   .content-page{
-    margin-left: 0px !important
-   }
+   
 
 </style>
 

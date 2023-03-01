@@ -97,7 +97,12 @@
                     </a>
 
                 </li> --}}
-                <div class="card ml-3">
+
+
+                @if (Auth::user()->app_user_type != 'dbkl')
+                    
+               
+                <div class="card ml-3 side-bar-card">
                     <div class="card-body  left-sidebar">
                     <li>
                         <a href="#sidebarApplication" class="text-center" data-bs-toggle="collapse">
@@ -123,6 +128,32 @@
                         </div>  
                     </li>
                 </div>
+
+                @else
+
+                <div class="card ml-3 side-bar-card">
+                    <div class="card-body  left-sidebar">
+                    <li >
+                        <a href="{{route('application.index')}}" class="text-center mb-3" >
+                         <p class="text-center">   <i data-feather="file-text" style="color:white"></i></p>
+                           <span class="text-white ml-3"> Application </span>
+                           
+                        </a>
+
+                       
+
+                        
+                    </li>
+
+                    <li >
+                        <a href="getmap" class="text-center" >
+                            <p class="text-center">   <i data-feather="map" style="color:white"></i></p>
+                              <span class="text-white px-4"> Map </span>
+                              
+                           </a>
+                    </li>
+                </div>
+                @endif
 
                 </div>
      
@@ -204,6 +235,7 @@ ul.sidebar-menu li.active, ul.sidebar-menu li:hover, ul.sidebar-menu li:focus {
 }
 li{
     border-bottom: 1px solid white;
+    padding-bottom: 10px
 }
 p.text-center {
     font-size: 33px;
@@ -218,12 +250,12 @@ span.text-white.ml-3 {
 }
 .card-body.left-sidebar {
     margin-top: 80px;
-    margin-left: 20px;
+    margin-left: 18px;
     background-color: #1a3869;
 }
 .nav-second-level li a {
     padding:11px 11px !important;
-     }.left-side-menu.menuitem-active {
+     }.left-side-menu.menuitem-active,.left-side-menu,.side-bar-card {
     background-color: #F4F5F7 !important;
     box-shadow: none;
 }.card.ml-3.show {
