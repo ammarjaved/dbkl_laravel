@@ -34,8 +34,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('get-application-geom',[ApplicationGeom::class,'getallGeom']);
 
     Route::group(['middleware' => 'dbkl'], function () {
-        Route::get('getmap',[mapController::class,'index']);
+    Route::get('/',[PermitController::class,'index']);
     });
+
+    Route::get('/',[MapController::class,])
     
     
 });
