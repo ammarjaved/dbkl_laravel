@@ -21,8 +21,11 @@ class application extends Controller
      */
     public function index()
     {
+        if(Auth::user()->app_user_type == 'dbkl'){
+            $applications = infoApplicant::all();
+        }else{
         $applications = infoApplicant::where('created_by',Auth::user()->id)->orderBy('id','asc')->get();
-
+        }
         return view('Application.index',['applications'=>$applications]);
     }
 
