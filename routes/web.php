@@ -6,8 +6,7 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\PermitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
- 
-
+use App\Http\Controllers\UpdateStatus;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +31,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('permohan',permohanController::class);
     Route::get('get-application-geom/{id}',[ApplicationGeom::class,'getGeom']);
     Route::get('get-application-geom',[ApplicationGeom::class,'getallGeom']);
-
+    
     Route::group(['middleware' => 'dbkl'], function () {
     Route::get('/',[PermitController::class,'index']);
+    Route::post('update-status',[UpdateStatus::class,'changeStatus']);
+
     });
 
-    Route::get('/',[MapController::class,]);
+    Route::get('/',[PermitController::class,'index']);
 
     
 

@@ -50,7 +50,7 @@
                                 <th>Nama Pemohon</th>
                                 <th>Nama Division</th>
                                
-                                <th>Action</th>
+                                <th>Status</th>
                                
                             </tr>
                         </thead>
@@ -61,48 +61,9 @@
                                 <td>{{ $application->company_name }}</td>
                                 <td>{{ $application->name_of_applicant }}</td>
                                 <td>{{ $application->division }}</td>
-                                
-                                    
-                                
-                                <td class="text-center p-1">
-                                    <div class="dropdown">
-                                        <button class="btn" type="button" id="dropdownMenuButton1"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="{{ URL::asset('images/three-dots-vertical.svg') }}">
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                                            <li><a href="{{ route('application.show', $application->id) }}"
-                                                    class="btn  btn-sm dropdown-item">Detail</a>
-                                            </li>
-
-                                            <li><a href="{{ route('application.edit', $application->id) }}"
-                                                    class="btn btn-sm dropdown-item">Edit</a></li>
-
-
-                                                    <li>
-                                                        <form method="POST"
-                                                            action="{{ route('application.destroy', $application->id) }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button type="submit" class="btn  btn-sm dropdown-item"
-                                                                onclick="return confirm('Are you Sure')">Delete</button>
-                                                        </form>
-                                                    </li>
-    
-                                            {{-- <li>
-
-                                                <button type="button" class="btn  btn-sm dropdown-item"
-                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                    onclick="conDestory({{ $application->id }})">Delete</button>
-
-                                            </li> --}}
-
-
-                                        </ul>
-                                    </div>
-                                </td>
-                           
+                                <td><button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" onclick="getID({{ $application->id }})"
+                                  >{{ $application->status }}</button></td>
                             </tr>
                         @endforeach
                         <tbody>
@@ -116,33 +77,39 @@
     </div>
     <!-- end row-->
 
-
-
-
-
-
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Confirm</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form action="update-status" onsubmit="return submitFoam()" method="POST">
                 <div class="modal-body">
-                    Are you sure ?
+                    
+                        @csrf
+                        <input type="hidden" name="id" id="id">
+                        <span class="text-danger" id="er_status"></span>
+                        <select name="status" id="status_s" class="form-select">
+                            <option value="" hidden>Select status</option>
+                            <option value="kiv">kiv</option>
+                            <option value="approved">Approved</option>
+                        </select>
+                    
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-
-
-                    <button type="button" onclick="destroy()" class="btn btn-primary"
-                        data-bs-dismiss="modal">confirm</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save </button>
 
                 </div>
-            </div>
-        </div>
-    </div>
+            </form>
+            </div></div></div>
+
+
+
+
+    
 @endsection
 
 @section('script')
@@ -167,20 +134,15 @@
             val = $id;
         }
 
-        function destroy() {
-            console.log("asdsad");
-            $(".loader").show();
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'DELETE',
-                url: `/application/${val}`,
-                success: function(data) {
-                    location.reload();
+        function getID(id){
+            $('#id').val(id);
+        }
 
-                }
-            })
+        function submitFoam(){
+            if($('#status_S').val() == null){
+                $('#er_status').html("Select status")
+                return false;
+            }
         }
     </script>
 @endsection

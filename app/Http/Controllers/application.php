@@ -23,10 +23,12 @@ class application extends Controller
     {
         if(Auth::user()->app_user_type == 'dbkl'){
             $applications = infoApplicant::all();
+            return view('dbkl.index',['applications'=>$applications]);
         }else{
         $applications = infoApplicant::where('created_by',Auth::user()->id)->orderBy('id','asc')->get();
-        }
         return view('Application.index',['applications'=>$applications]);
+        }
+        
     }
 
     /**
