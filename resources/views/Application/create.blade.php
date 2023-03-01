@@ -267,6 +267,9 @@
 
     <script src="{{ URL::asset('map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js')}}"></script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDBid44NzY6_Olyxu10cpexi_bO0F5bMI&libraries=places"></script>
+
+
     <script>
      var center = [3.016603, 101.858382];
     $(document).ready(function(){
@@ -280,6 +283,41 @@
 
 
 //setTimeout(function(){
+
+    var GooglePlacesSearchBox = L.Control.extend({
+  onAdd: function() {
+    var element = document.createElement("input");
+    element.id = "searchBox";
+    return element;
+  }
+});
+(new GooglePlacesSearchBox).addTo(map);
+var input = document.getElementById("searchBox");
+var searchBox = new google.maps.places.SearchBox(input);
+
+searchBox.addListener('places_changed', function() {
+  var places = searchBox.getPlaces();
+
+  if (places.length == 0) {
+    return;
+  }
+
+  var group = L.featureGroup();
+
+  places.forEach(function(place) {
+
+    // Create a marker for each place.
+    var marker = L.marker([
+      place.geometry.location.lat(),
+      place.geometry.location.lng()
+    ]);
+    group.addLayer(marker);
+  });
+
+  //group.addTo(map);
+  map.fitBounds(group.getBounds());
+
+});
 
 
     var drawnItems = new L.FeatureGroup();

@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/',[PermitController::class,'index']);
     });
 
-    Route::get('/',[MapController::class,])
+    Route::get('/',[MapController::class,]);
     
     
 });
