@@ -43,7 +43,7 @@
        
 
         <div  class="row p-3 pb-0">
-            <div id="map" style="padding:0px 0px 0px 0px;width: 100%;height: 600px;"></div>
+            <div id="map" style="padding:0px 0px 0px 0px;width: 100%;height: 600px;">  </div>
     
         </div>    
         
@@ -339,7 +339,7 @@ L.control.layers(baseLayers, overlays).addTo(map);
 
 
 
-
+$('.leaflet-control-attribution').append(`<img src="{{URL::asset('aasets/images/legend.PNG')}}">`)
       
         // alert(appID);
             $.ajax({

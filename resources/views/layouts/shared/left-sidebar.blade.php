@@ -146,7 +146,7 @@
                     </li>
 
                     <li >
-                        <a href="getmap" class="text-center" >
+                        <a href="/getmap" class="text-center" >
                             <p class="text-center">   <i data-feather="map" style="color:white"></i></p>
                               <span class="text-white px-3"> Map View</span>
                               
