@@ -12,10 +12,11 @@ class UpdateStatus extends Controller
 
     public function changeStatus(Request $req)
     {
-           try{
+    try{
         infoApplicant::find($req->id)->update(['status'=>$req->status]);
         }catch(Exception $e){
             return redirect()->back();
         }
+        return redirect()->back();
     }
 }

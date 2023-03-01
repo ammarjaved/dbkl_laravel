@@ -139,7 +139,7 @@
         }
 
         function submitFoam(){
-            if($('#status_S').val() == null){
+            if($('#status_s').val() == ""){
                 $('#er_status').html("Select status")
                 return false;
             }
