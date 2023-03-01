@@ -24,6 +24,7 @@ class Permit extends Model
         'total_road_repair_cost_c',
         'applicant_id',
         'contractor_id',
-        'owner_id'
+        'owner_id',
+        ''
     ];
 }

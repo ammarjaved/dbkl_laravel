@@ -23,5 +23,7 @@ class infoApplicant extends Model
         'division',
         'created_by',
         'work_type',
+        'before_image',
+        'after_image'
     ];
 }
