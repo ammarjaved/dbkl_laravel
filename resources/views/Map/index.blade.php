@@ -424,12 +424,12 @@ $('.leaflet-control-attribution').append(`<img src="{{URL::asset('assets/images/
                         <th>Before Image</th>
                         <td>
                             <a href="${feature.properties.before_image}"
-                            data-lightbox="roadtrip"><img src="${feature.properties.before_image}" width="50px" height="50px"/></a></td>
+                            data-lightbox="roadtrip"><img src="${feature.properties.before_image}" width="50px" height="50px" alt="no image Uploaded"/></a></td>
                         </tr>
                         <tr>
                         <th>After Image</th>
                         <td><a href="${feature.properties.after_image}"
-                            data-lightbox="roadtrip"><img src="${feature.properties.after_image}" width="50px" height="50px"/></a></td>
+                            data-lightbox="roadtrip"><img src="${feature.properties.after_image}" width="50px" height="50px" alt="no image  uploaded"/></a></td>
                         </tr>
                     </table>`);
                         }

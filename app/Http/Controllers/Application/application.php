@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Application;
 
 use App\Http\Requests\application as RequestsApplication;
-use App\Models\ContractorInfo;
 use App\Models\infoApplicant;
-use App\Models\OwnerInfo;
-use App\Models\Permit;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;                          
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class application extends Controller
 {
@@ -73,23 +71,7 @@ class application extends Controller
         }
 
 
-        if($request->before_image1 != ""){
-                 $file                   =   $request->file('before_image1');                
-                $img4_loccap            =   $file->getClientOriginalExtension() ;
-                $filename               =  'Permit-'.$request->ref_num.'-before-image-'.  strtotime(now()) .'.' . $img4_loccap;
-                                            
-                $request['before_image']  = asset('asset/images/Permit') .'/'. $filename;
-                $file->move($destinationPath, $filename);
-        }
-
-        if($request->after_image1 != ""){
-            $file                   =   $request->file('after_image1');                
-                $img4_loccap            =   $file->getClientOriginalExtension() ;
-                $filename               =  'Permit-'.$request->ref_num.'-after-image-'.  strtotime(now()) .'.' . $img4_loccap;
-                                            
-                $request['after_image']  =  asset('asset/images/Permit') .'/'. $filename;
-                $file->move($destinationPath, $filename);
-        }
+        
         
         // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
         $request['parlimen'] = serialize($request->parlimen);
@@ -106,28 +88,7 @@ class application extends Controller
 
         DB::select("INSERT INTO application_geom_info (application_id, geom) VALUES ($app->id , st_geomfromgeojson('$request->geom'))");
      
-        // $contractor = ContractorInfo::create($request->all());
-        // $owner = OwnerInfo::create([
-        //     'phone'=>$request->owner_phone,
-        //     'fax'=>$request->owner_fax,
-        //     'company_name'=>$request->owner_company_name,
-        //     'address'=>$request->owner_address,
-        //     'email'=>$request->email
-        // ]);
-
-        // $permit =  
-        // Permit::create(
-        //    $request->all()
-          
-        // );
-
-        // $pprk = Permit::find($permit->id);
         
-        // $permit->applicant_id = $app->id;
-        // $permit->contractor_id =$contractor->id;
-        // $permit->owner_id= $owner->id;
-        // $permit->update();
-
       
            
          }catch(Exception $e){
@@ -146,17 +107,9 @@ class application extends Controller
      */
     public function show($id)
     {
-        //
-        // $data=[];
+    
          $app = infoApplicant::find($id);
-        //  if($app){
-        //    return $data['permit'] = Permit::where('applicant_id',$app->id)->get();
-        //     $data['owner'] = OwnerInfo::find($data['permit'] ->owner_id);
-        //     $data['contractor'] = ContractorInfo::find($data['permit'] ->contractor_id);
-            
-        //  }  
-        //  dd($data);
-        
+       
         return $app  ? view('Application.show',['app'=>$app]) : abort('404');
     }
 

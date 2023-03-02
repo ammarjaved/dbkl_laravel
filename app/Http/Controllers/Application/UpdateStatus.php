@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Application;
 use App\Models\infoApplicant;
 use Exception;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class UpdateStatus extends Controller
 {
