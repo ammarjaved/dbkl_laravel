@@ -25,20 +25,23 @@ require __DIR__ . '/auth.php';
 Route::group(['middleware' => 'auth'], function () {
     Route::get('getmap', [MapController::class, 'index']);
     Route::view('dashboard', 'dashboard');
-    Route::resource('permit', PermitController::class);
+    Route::resource('permit', PermitController::class)->except([
+        'create'
+    ]);
+    Route::get('permit/create/{id}',[PermitController::class,'create'])->name('permit.create');
     Route::resource('application', application::class);
     Route::resource('permohan', permohanController::class);
     Route::get('get-application-geom/{id}', [ApplicationGeom::class, 'getGeom']);
     Route::get('get-application-geom', [ApplicationGeom::class, 'getallGeom']);
 
-    
+
 
     Route::group(['middleware' => 'dbkl'], function () {
-        Route::get('/', [PermitController::class, 'index']);
+        Route::get('/', [application::class, 'index']);
         Route::post('update-status', [UpdateStatus::class, 'changeStatus']);
     });
 
-    Route::get('/', [PermitController::class, 'index']);
+    Route::get('/', [application::class, 'index']);
     Route::resource('application-progress',ApplicationProgress::class);
 });
 

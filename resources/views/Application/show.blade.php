@@ -142,7 +142,7 @@
                 id="road_involved"  rows="7" disabled>{{ $app->road_involved }}</textarea></div>
         </div>
         <div class="  text-end">
-          <a href="{{route('permit.create')}}"> <button class="btn btn-primary bordered-0">NEXT</button></a> 
+          <a href="{{route('permit.create',$app->id)}}"> <button class="btn btn-primary bordered-0">NEXT</button></a> 
         </div>
     </div>
 

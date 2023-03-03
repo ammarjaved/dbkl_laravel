@@ -22,10 +22,10 @@ class PermitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('Permit.create');
+        return view('Permit.create',['id'=>$id]);
     }
 
     /**

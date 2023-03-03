@@ -39,8 +39,8 @@
                 <h4 class="page-title">Add Application</h4>
             </div>
         </div>
-    </div>
-
+        </div>
+<input type="hidden" name="id" id="" value="{{$id}}">
     <div class="card p-4">
 
         <div class="row pb-3">
