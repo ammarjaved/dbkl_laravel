@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permit;
-use App\Http\Requests\StorePermitRequest;
-use App\Http\Requests\UpdatePermitRequest;
+use Illuminate\Http\Request;
 
 class PermitController extends Controller
 {
@@ -16,6 +14,7 @@ class PermitController extends Controller
     public function index()
     {
         //
+        
     }
 
     /**
@@ -25,16 +24,17 @@ class PermitController extends Controller
      */
     public function create()
     {
+        //
         return view('Permit.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePermitRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePermitRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class PermitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Permit  $permit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Permit $permit)
+    public function show($id)
     {
         //
     }
@@ -53,10 +53,10 @@ class PermitController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Permit  $permit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permit $permit)
+    public function edit($id)
     {
         //
     }
@@ -64,11 +64,11 @@ class PermitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePermitRequest  $request
-     * @param  \App\Models\Permit  $permit
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePermitRequest $request, Permit $permit)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +76,10 @@ class PermitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Permit  $permit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permit $permit)
+    public function destroy($id)
     {
         //
     }

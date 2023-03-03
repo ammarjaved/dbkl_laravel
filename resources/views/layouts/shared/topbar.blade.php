@@ -362,17 +362,7 @@
             </li>
             @endif
 
-            <li>
-                <!-- Mobile menu toggle (Horizontal Layout)-->
-                <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
-                    <div class="lines">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </a>
-                <!-- End mobile menu toggle-->
-            </li>
+             
 
             {{-- <li class="dropdown d-none d-xl-block">
                 <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

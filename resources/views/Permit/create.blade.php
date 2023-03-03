@@ -1,90 +1,29 @@
 @extends('layouts.vertical', ['page_title' => 'Application'])
+
 @section('css')
-<!-- third party css -->
-<link href="{{asset('assets/libs/ladda/ladda.min.css')}}" rel="stylesheet" type="text/css" />
 
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <style>
-* {
-  box-sizing: border-box;
+    button.d-flex{
+        background-color: #c9c3c3b8 !important;
+    color: #000000ad !important;
+    font-weight: 800 !important;
+    border: none;
+    padding: 15px !important;
 }
-
-body {
-  background-color: #f1f1f1;
-}
-
-
-#regForm {
-  background-color: #ffffff;
-  margin: 100px auto;
-  font-family: Raleway;
-  padding: 40px;
-  width: 70%;
-  min-width: 300px;
-}
-
-h1 {
-  text-align: center;  
-}
-
-input {
-  padding: 10px;
-  width: 100%;
-  font-size: 17px;
-  font-family: Raleway;
-  border: 1px solid #aaaaaa;
-}
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-.tab {
-  display: none;
-}
-
-button {
-  background-color: #04AA6D;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 17px;
-  font-family: Raleway;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-#prevBtn {
-  background-color: #bbbbbb;
-}
-
-/* Make circles that indicate the steps of the form: */
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbbbbb;
-  border: none;  
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
-
-.step.active {
-  opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-.step.finish {
-  background-color: #04AA6D;
+    button:focus{
+        box-shadow: none !important;
+    }
+    i{
+        font-size: 20px
+    }
+    thead {
+    background-color: #c9c3c340;
 }
 </style>
+
+
 @endsection
+
 
 @section('content')
     <div class="row">
@@ -102,306 +41,323 @@ button:hover {
         </div>
     </div>
 
+    <div class="card p-4">
 
-    {{-- <div class="container col-md-8"> --}}
-{{-- a
-        <div class="card p-3 ">
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="">Tajuk Kerja</label><span class="text-danger">@error('job_title_a'){{$message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="job_title_a" value="{{old('job_title_a')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="advance_deposit_a">Bayaran</label><span class="text-danger">@error('advance_deposit_a'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="advance_deposit_a" value="{{old('advance_deposit_a')}}"></div>
-            </div>
+        <div class="row pb-3">
+            <button  class="btn d-flex justify-content-between " type="button" data-bs-toggle="collapse" data-bs-target="#collapseA"
+                aria-expanded="false" aria-controls="collapseA">
+              <span>  A. Borang JKPB / P - 02</span> <i class="fas fa-plus"></i>
+            </button>
+            <div class="collapse show" id="collapseA">
+                <div class="card card-body">
+                    <h3>KIRAAN DEPOSIT KOREKAN JALAN</h3>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">Tajuk Kerja</div>
+                        <div class="col-md-7 col-sm-12">
+                            PERMOHONAN UNTUK MENDAPATKAN KELULUSAN PERMIT BAGI MENJALANKAN KERJA-KERJA VOLTAN RENDAH 415V DI
+                            NO 7, LORONG SETIA BESTARI 1, 50490 KUALA LUMPUR DI DALAM KAWASAN REZAB JALAN WILAYAH
+                            PERSEKUTUAN KUALA LUMPUR.
+                        </div>
+                    </div>
+                    <p>BAHAGIAN A: MOBILIZATION AND DEMOBILIZATION</p>
+                    {{-- <div class="row">
+            <div class="col-md-4 col-sm-12">Bayaran</div>
+            <div class="col-md-7 col-sm-12">5000.00</div>
+            </div> --}}
+            <div class="table-responsive">
+                    <table class="table  table-bordered  ">
+                        <thead>
+                            <th>BIL</th>
+                            <th>PERKARA</th>
+                            <th>BAYARAN
+                                (RM)</th>
+                        </thead>
+                        <tbody>
+                            <td>1</td>
+                            <td>Mobilization And Demobilization </td>
+                            <td>5,000.00</td>
+                        </tbody>
+                    </table>
 
-            B
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="streetname_b">NAMA JALAN</label><span class="text-danger">@error('streetname_b'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="streetname_b" value="{{old('streetname_b')}}"></div>
             </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="distance_b">PANJANG (METER)</label><span class="text-danger">@error('distance_b'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="distance_b" value="{{old('distance_b')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="damage_method_b">KAEDAH KERJA</label><span class="text-danger">@error('damage_method_b'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="damage_method_b" value="{{old('damage_method_b')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="damage_rate_per_unit_b">KADAR (RM/METER)</label><span class="text-danger">@error('damage_rate_per_unit_b'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="damage_rate_per_unit_b" value="{{old('damage_rate_per_unit_b')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="total_cost_b">BAYARAN (RM)</label><span class="text-danger">@error('total_cost_b')This field is required @enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="total_cost_b" value="{{old('total_cost_b')}}"></div>
-            </div>
-            c 
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="road_repair_description_c">road_repair_description_c</label><span class="text-danger">@error(''){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="road_repair_description_c" value="{{old('road_repair_description_c')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="repair_perunit_chages_c">repair_perunit_chages_c</label><span class="text-danger">@error('repair_perunit_chages_c'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="repair_perunit_chages_c" value="{{old('repair_perunit_chages_c')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="total_road_repair_cost_c">total_road_repair_cost_c</label><span class="text-danger">@error('total_road_repair_cost_c'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="total_road_repair_cost_c" value="{{old('total_road_repair_cost_c')}}"></div>
-            </div>
-
-            owner disceiptiion
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="phone">phone</label><span class="text-danger">@error('phone'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="phone" value="{{old('phone')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="fax">fax</label><span class="text-danger">@error('fax'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="fax" value="{{old('fax')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="company_name">company_name</label><span class="text-danger">@error('company_name'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="company_name" value="{{old('company_name')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="address">address</label><span class="text-danger">@error('address'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="address" value="{{old('address')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="email">email</label><span class="text-danger">@error('email'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="email" value="{{old('email')}}"></div>
-            </div>
-
-           contractor ionfo
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="name">name</label><span class="text-danger">@error('name'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="name" value="{{old('name')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="phone">phone</label><span class="text-danger">@error('phone'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="phone" value="{{old('phone')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="company_name">company_name</label><span class="text-danger">@error('company_name'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="company_name" value="{{old('company_name')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="postcode">postcode</label><span class="text-danger">@error('postcode'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="postcode" value="{{old('postcode')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="state">state</label><span class="text-danger">@error('state'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="state" value="{{old('state')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="address">address</label><span class="text-danger">@error('address'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="address" value="{{old('address')}}"></div>
-            </div>
-            <div class="row p-3 pb-0">
-                <div class="col-md-5"><label for="email">email</label><span class="text-danger">@error('email'){{message}}@enderror</span></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="email" value="{{old('email')}}"></div>
+                </div>
             </div>
         </div>
-    </div> --}}
-    
-<form id="regForm" action="/action_page.php">
-    <h1>Permit:</h1>
-    <!-- One "tab" for each step in the form: -->
-    <div class="tab m-3">A. Borang JKPB / P - 02 : 
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="">Tajuk Kerja</label><span class="text-danger">@error('job_title_a'){{$message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" oninput="this.className = ''" class="form-control" id="job_title_a" value="{{old('job_title_a')}}"></div>
+
+
+        <div class=" row pb-3">
+            <button class="btn d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseB"
+                aria-expanded="false" aria-controls="collapseB">
+              <span>  BAHAGIAN B : CAJ GANTI RUGI</span> <i class="fas fa-plus"></i>
+            </button>
+            <div class="collapse" id="collapseB">
+                <div class="card card-body">
+                    <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <th>BIL</th>
+                            <th>NAMA JALAN</th>
+                            <th>PANJANG (METER)</th>
+                            <th>KAEDAH KERJA *</th>
+                            <th>KADAR
+                                (RM / METER)</th>
+                            <th>BAYARAN
+                                (RM)</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <th>*KOD</th>
+                            <th>KAEDAH KERJA</th>
+                            <th>CAJ GANTI RUGI </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>KT</td>
+                                <td>Korekan Terbuka</td>
+                                <td>RM 50.00 / m </td>
+                            </tr>
+                            <tr>
+                                <td>HDD/PJ/MT/PT</td>
+                                <td>‘Horizontal Directional Drilling’(HDD), ‘Pipe Jacking’(PJ), ‘Micro Trenching’ (MT) Dan
+                                    ‘Pilot Trenching’(PT)</td>
+                                <td>RM 30.00 / m </td>
+                            </tr>
+                            <tr>
+                                <td>BH</td>
+                                <td>Penyiasatan tanah </td>
+                                <td>RM 20.00 / no</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
         </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="advance_deposit_a">Bayaran</label><span class="text-danger">@error('advance_deposit_a'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="advance_deposit_a" value="{{old('advance_deposit_a')}}"></div>
+        <div class="row pb-3">
+            <button class="btn d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC"
+                aria-expanded="false" aria-controls="collapseB">
+             <span>   BAHAGIAN C: KADAR CAJ BAIK PULIH JALAN ( HORIZONTAL DIRECTIONAL DRILLING (HDD), PIPE JACKING DAN
+                PILOT TRENCHING)</span> <i class="fas fa-plus"></i>
+            </button>
+            <div class="collapse" id="collapseC">
+                <div class="card card-body">
+
+                    <div class="table-responsive">
+                    <table class="table table-bordered ">
+
+                        <thead>
+                            <th>BIL</th>
+                            <th>DESCRIPTION</th>
+                            <th>KUANTITI</th>
+                            <th>BIL LORONG</th>
+                            <th>KADAR
+                                (RM)</th>
+                            <th>BAYARAN
+                                (RM)</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>ACW (Asphaltic Concrete Wearing) + Tack Coat (Rs-1k) + Milling Works + Road
+                                    Marking Works (as per specification)</td>
+                                <td>pit</td>
+                                <td>no</td>
+                                <td>7,200.00/pit </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Stone Mastic Asphalt or Equivalent + Tack Coat (Rs-2k)+ Milling Works + Road
+                                    Marking Works (as per specification)</td>
+                                <td>pit </td>
+                                <td>no</td>
+                                <td>10,600.00/pit </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Footpath with finishing Interlocking Concrete Paving / Clay Paver / Granite
+                                    Tiled & Miscellaneous</td>
+                                <td>m2</td>
+                                <td>-</td>
+                                <td>620.00 / m2</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Ujian Loose Sample & Marshall Test
+                                    (Ujian bagi setiap 5 pit)</td>
+                                <td>nos</td>
+                                <td>-</td>
+                                <td>RM 2,100.00 /5 Pit</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Coring Test (Bagi Setiap Pit)</td>
+                                <td>nos</td>
+                                <td>- </td>
+                                <td>RM 132.00 /
+                                    Pit </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Turfing</td>
+                                <td>m2</td>
+                                <td>-</td>
+                                <td>30.00 / m2</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-end">JUMLAH KESELURUHAN BAHAGIAN C (RM) = </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row pb-3">
+            <button class="btn d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseD"
+                aria-expanded="false" aria-controls="collapseD">
+             <span>   BAHAGIAN D: KADAR CAJ BAIK PULIH JALAN ( KOREKAN TERBUKA DAN MICRO TRENCHING)</span><i class="fas fa-plus"></i>
+            </button>
+                <div class="collapse" id="collapseD">
+                    <div class="card card-body">
+                        <div class="table-responsive">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <th>BIL</th>
+                                <th>DESCRIPTION</th>
+                                <th>KUANTITI /
+                                    PANJANG </th>
+                                <th>BIL LORONG</th>
+                                <th>KADAR
+                                    (RM)</th>
+                                <th>BAYARAN
+                                    (RM)</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>DESCRIPTION
+
+                                        ACW (Asphaltic Concrete Wearing) + Tack Coat (Rs-1k) + Milling Works + Road Marking
+                                        Works (as per specification) </td>
+                                    <td>m</td>
+                                    <td>no</td>
+                                    <td>360.00 /m </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Stone Mastic Asphalt or Equivalent + Tack Coat (Rs-2k)+ Milling Works + Road Marking
+                                        Works (as per specification)</td>
+                                    <td>m</td>
+                                    <td>no</td>
+                                    <td>530.00/m </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Footpath with finishing Interlocking Concrete Paving / Clay Paver / Granite Tiled &
+                                        Miscellaneous</td>
+                                    <td>m2</td>
+                                    <td>-</td>
+                                    <td>620.00 / m2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Ujian Loose Sample & Marshall Test
+                                        (Ujian Bagi Setiap 1500m2 dengan kelebaran 1 lorong yang terlibat dengan dengan
+                                        kerja pengorekan)</td>
+                                    <td>nos</td>
+                                    <td>-</td>
+                                    <td>RM 2,100.00 /
+                                        1500m2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Coring Test
+                                        (Jumlah ujian adalah berdasarkan 500m2 keluasan jalan sediada daripada bebendul ke
+                                        bebendul - termasuk jalan yang tidak terlibat dengan kerja pengorekan)</td>
+                                    <td>nos</td>
+                                    <td>-</td>
+                                    <td>RM 132.00 /
+                                        500m2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Turfing</td>
+                                    <td>m2</td>
+                                    <td>-</td>
+                                    <td>30.00 / m2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">JUMLAH KESELURUHAN BAHAGIAN D (RM) =</td>
+                                    <td></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        <div class="table-responsive"> 
+                        <table class="table table-bordered table-responsive">
+                            <thead>
+                                <th colspan="2" class="text-center">KIRAAN JUMLAH BAYARAN KERJA KOREKAN</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="text-end">JUMLAH BAHAGIAN A</th>
+                                    <td class="col-md-1"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end"> JUMLAH BAHAGIAN B</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end">JUMLAH BAHAGIAN C + JUMLAH BAHAGIAN D</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end">5 % KOS PERKHIDMATAN dari JUMLAH (BAHAGIAN A + BAHAGIAN C + BAHAGIAN D</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end">50 % DEPOSIT dari JUMLAH (BAHAGIAN A + BAHAGIAN C + BAHAGIAN D)</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end">JUMLAH KESELURUHAN</th>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div></div>
+                </div>
         </div>
     </div>
-    
-    <div class="tab p-3">BAHAGIAN B: CAJ GANTIRUGI :
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="streetname_b">NAMA JALAN</label><span class="text-danger">@error('streetname_b'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="streetname_b" value="{{old('streetname_b')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="distance_b">PANJANG (METER)</label><span class="text-danger">@error('distance_b'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="distance_b" value="{{old('distance_b')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="damage_method_b">KAEDAH KERJA</label><span class="text-danger">@error('damage_method_b'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="damage_method_b" value="{{old('damage_method_b')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="damage_rate_per_unit_b">KADAR (RM/METER)</label><span class="text-danger">@error('damage_rate_per_unit_b'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="damage_rate_per_unit_b" value="{{old('damage_rate_per_unit_b')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="total_cost_b">BAYARAN (RM)</label><span class="text-danger">@error('total_cost_b')This field is required @enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="total_cost_b" value="{{old('total_cost_b')}}"></div>
-        </div>
-    </div>
-    <div class="tab p-3">BAHAGIAN C: KADAR CAJ BAIK PULIH JALAN (HDD, PIPE JACKING, PENYIASATAN TANAH) : 
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="road_repair_description_c">Penerangan pembaikan jalan</label><span class="text-danger">@error(''){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="road_repair_description_c" value="{{old('road_repair_descriptioon_c')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="repair_perunit_chages_c">Membaiki per unit charges</label><span class="text-danger">@error('repair_perunit_chages_c'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="repair_perunit_chages_c" value="{{old('repair_perunit_chages_c')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="total_road_repair_cost_c">Jumlah kos pembaikan jalan</label><span class="text-danger">@error('total_road_repair_cost_c'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="total_road_repair_cost_c" value="{{old('total_road_repair_cost_c')}}"></div>
-        </div>
-    </div>
-    <div class="tab p-3">Owner description : 
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="phone"> Telefon no</label><span class="text-danger">@error('phone'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="phone" value="{{old('phone')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="fax">Faks</label><span class="text-danger">@error('fax'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="fax" value="{{old('fax')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="company_name">Nama syarikat</label><span class="text-danger">@error('company_name'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="company_name" value="{{old('company_name')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="address">Alamat</label><span class="text-danger">@error('address'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="address" value="{{old('address')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="email">Email</label><span class="text-danger">@error('email'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="email" value="{{old('email')}}"></div>
-        </div>
-
-    </div>
-
-    <div class="tab p-3">Contractor description : 
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="name">Nama</label><span class="text-danger">@error('name'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="name" value="{{old('name')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="phone">Telefon no</label><span class="text-danger">@error('phone'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="phone" value="{{old('phone')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="company_name">Nama syarikat</label><span class="text-danger">@error('company_name'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="company_name" value="{{old('company_name')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="postcode">Postcode</label><span class="text-danger">@error('postcode'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="postcode" value="{{old('postcode')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="state">Negeri</label><span class="text-danger">@error('state'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="state" value="{{old('state')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="address">Alamat</label><span class="text-danger">@error('address'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="address" value="{{old('address')}}"></div>
-        </div>
-        <div class="row p-3 pb-0">
-            <div class="col-md-5"><label for="email">Email</label><span class="text-danger">@error('email'){{message}}@enderror</span></div>
-            <div class="col-md-7"><input type="text" class="form-control" id="email" value="{{old('email')}}"></div>
-        </div>
-    </div>
-    <div style="overflow:auto;">
-      <div style="float:right;">
-        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-      </div>
-    </div>
-    <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-    </div>
-  </form>
-    
-@endsection
-
-@section('script')
-
-
-<script>
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
-    
-    function showTab(n) {
-      // This function will display the specified tab of the form...
-      var x = document.getElementsByClassName("tab");
-      x[n].style.display = "block";
-      //... and fix the Previous/Next buttons:
-      if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-      } else {
-        document.getElementById("prevBtn").style.display = "inline";
-      }
-      if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-      } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-      }
-      //... and run a function that will display the correct step indicator:
-      fixStepIndicator(n)
-    }
-    
-    function nextPrev(n) {
-      // This function will figure out which tab to display
-      var x = document.getElementsByClassName("tab");
-      // Exit the function if any field in the current tab is invalid:
-      if (n == 1 && !validateForm()) return false;
-      // Hide the current tab:
-      x[currentTab].style.display = "none";
-      // Increase or decrease the current tab by 1:
-      currentTab = currentTab + n;
-      // if you have reached the end of the form...
-      if (currentTab >= x.length) {
-        // ... the form gets submitted:
-        document.getElementById("regForm").submit();
-        return false;
-      }
-      // Otherwise, display the correct tab:
-      showTab(currentTab);
-    }
-    
-    function validateForm() {
-      // This function deals with validation of the form fields
-      var x, y, i, valid = true;
-      x = document.getElementsByClassName("tab");
-      y = x[currentTab].getElementsByTagName("input");
-      // A loop that checks every input field in the current tab:
-      for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value == "") {
-          // add an "invalid" class to the field:
-          y[i].className += " invalid";
-          // and set the current valid status to false
-          valid = false;
-        }
-      }
-      // If the valid status is true, mark the step as finished and valid:
-      if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-      }
-      return valid; // return the valid status
-    }
-    
-    function fixStepIndicator(n) {
-      // This function removes the "active" class of all steps...
-      var i, x = document.getElementsByClassName("step");
-      for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-      }
-      //... and adds the "active" class on the current step:
-      x[n].className += " active";
-    }
-    </script>
-    
-
 @endsection

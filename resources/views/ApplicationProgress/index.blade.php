@@ -111,7 +111,7 @@
                                 <label for="before_image">Before Image</label>
                                 <div class="text-center p-2" id="before"></div>
                                 <div class=" ">
-                                <input type="file" class="form-control" name="before_image1" id="before_image">
+                                <input type="file" class="form-control" onchange="encodeImageFileAsURL(this)" name="before_image1" id="before_image">
                             </div>
                             
                             </div>
@@ -119,7 +119,7 @@
                                 <label for="before_image">After Image</label>
                                 <div class="text-center p-2" id="after"></div>
                                 <div class=" ">
-                                <input type="file" class="form-control" name="after_image1" id="after_image">
+                                <input type="file" class="form-control" onchange="encodeImageFileAsURL(this)" name="after_image1" id="after_image">
                             </div>
                             
                             </div>
@@ -194,5 +194,20 @@
                 }
             })
         }
+
+        function encodeImageFileAsURL(element) {
+                var file = element.files[0];
+                var reader = new FileReader();
+                let chi = $(`#${element.id}`).parent().parent().children()
+                console.log();
+                reader.onloadend = function() {
+                   // console.log('RESULT', reader.result)
+                   $(`#${chi[1].id}`).html('');
+                   $(`#${chi[1].id}`).append(`<a href="${reader.result}"
+                            data-lightbox="roadtrip"><img src="${reader.result}" height="162" width="140" alt="no image Uploaded"></a>` );
+                 
+                }
+                reader.readAsDataURL(file);
+            }
     </script>
 @endsection
