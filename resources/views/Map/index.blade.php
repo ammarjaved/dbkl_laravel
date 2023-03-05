@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Application'])
+@extends('layouts.vertical', ['page_title' => 'Aplikasi'])
 
 
 @section('css')
@@ -19,11 +19,11 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                    <li class="breadcrumb-item"><a href="#">Application</a></li>
-                    <li class="breadcrumb-item active">detail</li>
+                    <li class="breadcrumb-item"><a href="#">Aplikasi</a></li>
+                    <li class="breadcrumb-item active">butiran</li>
                 </ol>
             </div>
-            <h4 class="page-title">View Application Details</h4>
+            <h4 class="page-title">Lihat Aplikasi Butiran</h4>
         </div>
     </div>
 </div>

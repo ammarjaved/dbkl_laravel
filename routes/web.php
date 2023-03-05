@@ -23,7 +23,7 @@ use App\Http\Controllers\Application\ApplicationProgress;
 require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('getmap', [MapController::class, 'index']);
+   
     Route::view('dashboard', 'dashboard');
     Route::resource('permit', PermitController::class)->except([
         'create'
@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'dbkl'], function () {
         Route::get('/', [application::class, 'index']);
         Route::post('update-status', [UpdateStatus::class, 'changeStatus']);
+        Route::get('getmap', [MapController::class, 'index']);
     });
 
     Route::get('/', [application::class, 'index']);

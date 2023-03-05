@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Application'])
+@extends('layouts.vertical', ['page_title' => 'Aplikasi'])
 @section('css')
     <!-- third party css -->
     <link href="{{ asset('assets/libs/ladda/ladda.min.css') }}" rel="stylesheet" type="text/css" />
@@ -38,11 +38,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                        <li class="breadcrumb-item"><a href="#">Application</a></li>
-                        <li class="breadcrumb-item active">create</li>
+                        <li class="breadcrumb-item"><a href="#">Aplikasi</a></li>
+                        <li class="breadcrumb-item active">Buat</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Add Application</h4>
+                <h4 class="page-title">Buat Aplikasi</h4>
             </div>
         </div>
     </div>
@@ -228,8 +228,8 @@
                             id="road_involved"  rows="7">{{ old('road_involved') }}</textarea></div>
                 </div>
 
-                <div class="text-center p-4"><button class=" ladda-button btn btn-success btn-sm" dir="ltr"
-                    data-style="zoom-out">Submit</button></div>
+                <div class="text-center p-4"><button class=" ladda-button btn btn-success " dir="ltr"
+                    data-style="zoom-out">serahkan</button></div>
         </form>
         </div>
 
@@ -278,7 +278,6 @@
         }).addTo(map);
 
 
-//setTimeout(function(){
 
     var GooglePlacesSearchBox = L.Control.extend({
   onAdd: function() {
@@ -339,6 +338,9 @@ searchBox.addListener('places_changed', function() {
          
          map.addControl(drawControl);
 
+var mapData = [];
+var lineLenght = '';
+var arr = [];
 
          map.on('draw:created', function(e) {
             var type = e.layerType;
@@ -346,24 +348,26 @@ searchBox.addListener('places_changed', function() {
             drawnItems.addLayer(layer);
             // console.log(type);
             var data = layer.toGeoJSON();
-             console.log(JSON.stringify(data.geometry));
-             $('#geomID').val(JSON.stringify(data.geometry));
+            //  console.log(JSON.stringify(data.geometry));
+            
+          
              if (e.layerType = 'polyline') {
                     var coords = layer.getLatLngs();
                     var length = 0;
                     for (var i = 0; i < coords.length - 1; i++) {
                     length += coords[i].distanceTo(coords[i + 1]);
                     }
-                    $("#cabel_length").val(parseInt(length))
-                    // if(length<=200){
-                    //     $("#type_application").val('KURANG DARI 200 METER')
-                    // }else if(length>200&&length<300){
-                    //     $("#type_application").val('LEBIH DARI 200 METER')
-                    // }else{
-                    //     $("#type_application").val('KECEMASAN')
-                    // }
-            }
-          //  $('#layer').val(JSON.stringify(data.geometry));
+                    mapLenght = parseInt(length)
+                    $("#cabel_length").val(mapLenght)
+                
+            } 
+            arr[0] = JSON.stringify(data.geometry)
+            arr[1] = parseInt(length)
+            mapData.push(arr);
+            arr =[];
+            console.log(mapData)
+            $('#geomID').val( JSON.stringify(mapData));
+            
 
         })
 
@@ -386,7 +390,7 @@ searchBox.addListener('places_changed', function() {
                 $('#geomID').val('');
             });
         });
- //},2000)
+
  let params = $('input[name="work_type"]:checked').val();;
  changeTypeApplication(params);
 });

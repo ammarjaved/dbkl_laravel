@@ -16,7 +16,7 @@
                             <li>
                                 <a href="#sidebarApplication" class="text-center" data-bs-toggle="collapse">
                                     <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
-                                    <span class="text-white ml-3"> Application </span>
+                                    <div class="text-center"><span class="text-white "> Aplikasi </span></div>
 
                                 </a>
                                 <div class="collapse" id="sidebarApplication">
@@ -24,7 +24,7 @@
                                         <li>
                                             <a href="{{ route('application.create') }}">
                                                 <p class="text-center"><i class="mdi mdi-book-plus-outline"></i></p>
-                                                <span class="text-white">Add Application</span>
+                                               <div class="text-center"><span class="text-white"> Buat Aplikasi</span></div> 
 
                                             </a>
                                         </li>
@@ -32,7 +32,7 @@
 
                                             <a href="{{ route('application.index') }}">
                                                 <p class="text-center"><i class="mdi mdi-format-list-text"></i></p>
-                                                <span class="text-white">Show Application</span>
+                                             <div class="text-center">  <span class="text-white">Tunjuk Aplikasi</span></div> 
                                             </a>
                                         </li>
 
@@ -43,7 +43,7 @@
                             <li>
                                 <a href="{{route('application-progress.index')}}" class="text-center" >
                                     <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
-                                    <span class="text-white ml-2"> Add Progress </span>
+                                  <div class="text-center"> <span class="text-white  "> Kemajuan</span></div> 
 
                                 </a>
 
@@ -55,7 +55,7 @@
                                 <li>
                                     <a href="{{ route('application.index') }}" class="text-center mb-3">
                                         <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
-                                        <span class="text-white ml-3"> Application </span>
+                                        <div class="text-center">   <span class="text-white "> Aplikasi </span></div>
 
                                     </a>
 
@@ -67,7 +67,7 @@
                                 <li>
                                     <a href="/getmap" class="text-center">
                                         <p class="text-center"> <i data-feather="map" style="color:white"></i></p>
-                                        <span class="text-white px-3"> Map View</span>
+                                <div class="text-center">  <span class="text-white px-3"> Map View</span></div>
 
                                     </a>
                                 </li>

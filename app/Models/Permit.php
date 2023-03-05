@@ -12,19 +12,12 @@ class Permit extends Model
     public      $timestamps = false;
 
     protected $fillable     = [
-        'job_title_a',
-        'advance_deposit_a',
-        'streetname_b',
-        'distance_b',
-        'damage_method_b',
-        'damage_rate_per_unit_b',
-        'total_cost_b',
-        'road_repair_descriptioon_c',
-        'repair_perunit_chages_c',
-        'total_road_repair_cost_c',
-        'applicant_id',
-        'contractor_id',
-        'owner_id',
-        ''
+        'job_title',
+        'section_c',
+        'section_d',
+        'section_b',
+        'application_id',
+        'total_section_c',
+        'total_section_d',
     ];
 }

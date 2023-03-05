@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Application'])
+@extends('layouts.vertical', ['page_title' => 'Aplikasi'])
 
 @section('css')
     <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,11 +14,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Application</a></li>
-                        <li class="breadcrumb-item active">index</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aplikasi</a></li>
+                        <li class="breadcrumb-item active">Buat</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Applications</h4>
+                <h4 class="page-title">Aplikasi</h4>
             </div>
         </div>
     </div>

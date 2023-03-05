@@ -263,7 +263,7 @@
                 </div>
             </li>
  --}}
-            <li class="dropdown notification-list topbar-dropdown">
+            <li class="dropdown notification-list topbar-dropdown pb-0">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <img src="{{asset('images/user-logo.png')}}" alt="user-image" class="rounded-circle">
                     <span class="pro-user-name ms-1 ">
@@ -355,7 +355,7 @@
         <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
             @if (!request()->is("agency/create"))
            
-            <li>
+            <li class="pb-0">
                 <button class="button-menu-mobile waves-effect waves-light">
                     <i class="fe-menu"></i>
                 </button>

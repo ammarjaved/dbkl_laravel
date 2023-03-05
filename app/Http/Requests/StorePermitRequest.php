@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class StorePermitRequest extends FormRequest
 {
     /**
@@ -39,5 +40,18 @@ class StorePermitRequest extends FormRequest
             'owner_id' => 'required',
             // 'geom'=>'required'
         ];
+    }
+
+
+
+    public function store(){
+        DB::table('tbl_permit_application')->insert(   array(
+            'job_title' => 'taylor@example.com',
+            'advance_deposit'=>'200',
+            'section_c'=>json_encode( $_REQUEST['lorong']),
+            'section_d'=>json_encode($_REQUEST['BILlorong']), 
+            'section_b'=> json_encode($_REQUEST['kaedah']),
+            'application_id'=>$_REQUEST['id']
+            )) ;
     }
 }
