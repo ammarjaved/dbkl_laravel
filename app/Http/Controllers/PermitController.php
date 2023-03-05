@@ -92,6 +92,18 @@ class PermitController extends Controller
     public function edit($id)
     {
         //
+        $permit = Permit::where('application_id', $id)->first();
+        if ($permit) {
+            $permit['section_c'] = json_decode($permit->section_c);
+            $permit['section_b'] = json_decode($permit->section_b);
+            $permit['section_d'] = json_decode($permit->section_d);
+            // return $permit ;
+            $data['geom'] = DB::table('application_geom_info')
+                ->where('application_id', $id)
+                ->get();
+            return view('Permit.edit', ['permit' => $permit, 'data' => $data]);
+        }
+        return redirect()->back();
     }
 
     /**

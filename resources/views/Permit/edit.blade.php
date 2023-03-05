@@ -55,7 +55,7 @@
                     <div class="row mb-3">
                         <div class="col-md-4 col-sm-12">Tajuk Kerja</div>
                         <div class="col-md-8 col-sm-12">
-                            <textarea name="job_title" disabled class="form-control" id="job_title" cols="30" rows="7">{{$permit->job_title}}</textarea>
+                            <textarea name="job_title"  class="form-control" id="job_title" cols="30" rows="7">{{$permit->job_title}}</textarea>
                         
                         </div>
                     </div>
