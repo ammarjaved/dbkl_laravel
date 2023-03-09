@@ -348,20 +348,20 @@
                                 </tr>
                                 <tr>
                                     <th class="text-end">JUMLAH BAHAGIAN C + JUMLAH BAHAGIAN D</th>
-                                    <td></td>
+                                    <td><span id="sec_b_c"></span></td>
                                 </tr>
                                 <tr>
                                     <th class="text-end">5 % KOS PERKHIDMATAN dari JUMLAH (BAHAGIAN A + BAHAGIAN C + BAHAGIAN D</th>
-                                    <td></td>
+                                    <td><span id="service_cost"></span></td>
                                 </tr>
                                 <tr>
                                     <th class="text-end">50 % DEPOSIT dari JUMLAH (BAHAGIAN A + BAHAGIAN C + BAHAGIAN D)</th>
-                                    <td></td>
+                                    <td><span id="fifty_advacne"></span></td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <th class="text-end">JUMLAH KESELURUHAN</th>
                                     <td></td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div></div>
@@ -375,6 +375,8 @@
 
 @section('script')
     <script>
+
+        
         function kaedah(id) {
             let getkaedah = $(`#kaedah_${id}`).html()
 
@@ -391,7 +393,7 @@
             len = parseInt($(`#lenght_${id}`).html())
 
             $(`#kaedah_val_${id}`).html(len * kaedah)
-            $('#total_b').html(len * kaedah)
+            $('#total_b').html(len * kaedah + ".00 RM")
 
 
         }
@@ -448,6 +450,18 @@
         $(document).ready(function() {
             callLogong()
             kaedah(0)
+
+           let section_c_d =total_section_c + total_section_d
+            $("#sec_b_c").html(section_c_d+ ".00 RM");
+
+            let section_a_total = 5000;
+
+            $("#service_cost").html(Math.round((section_c_d + section_a_total ) * 0.05) + ".00 RM")
+            $("#fifty_advacne").html(Math.round((section_c_d + section_a_total ) * 0.5) + ".00 RM")
+
+
+
+
         })
 
         function callLogong() {

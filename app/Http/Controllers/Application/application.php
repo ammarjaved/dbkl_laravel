@@ -20,7 +20,7 @@ class application extends Controller
     public function index()
     {
         if (Auth::user()->app_user_type == 'dbkl') {
-            $applications = infoApplicant::all();
+            $applications = infoApplicant::where('status','Send To DBKL')->get();
             return view('dbkl.index', ['applications' => $applications]);
         } else {
             $applications = infoApplicant::where('created_by', Auth::user()->id)
@@ -142,9 +142,10 @@ class application extends Controller
         try {
             // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
             $request['parlimen'] = serialize($request->parlimen);
+            $request['file_no'] = "DRAF-".$request->ref_num;
             infoApplicant::find($id)->update($request->all());
             if ($request->geom != '') {
-                DB::select("UPDATE application_geom_info set  geom = st_geomfromgeojson('$request->geom') WHERE application_id = $id");
+                DB::select("UPDATE application_geom_info set  geom = st_geomfromgeojson('$request->geom') ,length= $request->cabel_length  WHERE application_id = $id");
             }
         } catch (Exception $e) {
             return $e->getMessage();

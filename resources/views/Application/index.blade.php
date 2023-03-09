@@ -3,8 +3,6 @@
 @section('css')
     <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    
 @endsection
 
 @section('content')
@@ -22,7 +20,7 @@
             </div>
         </div>
     </div>
-   
+
     <div class="row">
         <div class="col-12">
             <div class="card ">
@@ -33,7 +31,7 @@
                     @endif
                 </div>
 
-                <div class="card-body" >
+                <div class="card-body">
                     <h4 class="header-title">Applications</h4>
                     {{-- <p class="text-muted font-13 mb-4">
                     DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
@@ -45,25 +43,47 @@
                         <thead>
                             <tr>
                                 <th>Nombor Rujukan Utiliti</th>
-                                <th>No Telefon</th>
+                               
                                 <th>Nama Syarikat</th>
                                 <th>Nama Pemohon</th>
                                 <th>Nama Division</th>
-                               
+                                <th>Status</th>
+
                                 <th>Action</th>
-                               
+
                             </tr>
                         </thead>
                         @foreach ($applications as $application)
                             <tr>
-                                <td>{{ $application->ref_num }}</td>
-                                <td>{{ $application->telephone_no }}</td>
+                                <td>
+                                    @if ($application->status == 'inprocess')
+                                        {{ $application->file_no }}
+
+                                        @elseif($application->status == 'Send To DBKL')
+
+                                        {{ $application->ref_num }}
+                                        @else
+
+                                        {{$application->approved_file_no }}
+
+                                    @endif
+                                </td>
+                             
                                 <td>{{ $application->company_name }}</td>
                                 <td>{{ $application->name_of_applicant }}</td>
                                 <td>{{ $application->division }}</td>
-                                
-                                    
-                                
+                                <td>
+                                    @if ($application->status == 'inprocess')
+                                    <a href="/send-to-dbkl/{{$application->id}}" onclick="return confirm('Are you sure?')"><button class="btn btn-sm btn-success" >Send To DBKL</button></a>
+                                    @else  
+
+                            
+                                    {{$application->status }}
+                                @endif
+                                </td>
+
+
+
                                 <td class="text-center p-1">
                                     <div class="dropdown">
                                         <button class="btn" type="button" id="dropdownMenuButton1"
@@ -80,16 +100,16 @@
                                                     class="btn btn-sm dropdown-item">Edit</a></li>
 
 
-                                                    <li>
-                                                        <form method="POST"
-                                                            action="{{ route('application.destroy', $application->id) }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button type="submit" class="btn  btn-sm dropdown-item"
-                                                                onclick="return confirm('Are you Sure')">Delete</button>
-                                                        </form>
-                                                    </li>
-    
+                                            <li>
+                                                <form method="POST"
+                                                    action="{{ route('application.destroy', $application->id) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn  btn-sm dropdown-item"
+                                                        onclick="return confirm('Are you Sure')">Delete</button>
+                                                </form>
+                                            </li>
+
                                             {{-- <li>
 
                                                 <button type="button" class="btn  btn-sm dropdown-item"
@@ -102,7 +122,7 @@
                                         </ul>
                                     </div>
                                 </td>
-                           
+
                             </tr>
                         @endforeach
                         <tbody>

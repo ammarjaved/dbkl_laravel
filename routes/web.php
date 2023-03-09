@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('get-application-geom/{id}', [ApplicationGeom::class, 'getGeom']);
     Route::get('get-application-geom', [ApplicationGeom::class, 'getallGeom']);
 
+    Route::get('update-ref-number',[UpdateStatus::class,'update']);
+
+    Route::get('/send-to-dbkl/{id}',[UpdateStatus::class,'SendToDbkl']);
 
 
     Route::group(['middleware' => 'dbkl'], function () {

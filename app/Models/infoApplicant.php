@@ -26,6 +26,7 @@ class infoApplicant extends Model
         'before_image',
         'after_image',
         'status',
-        'file_no'
+        'file_no',
+        'approved_file_no'
     ];
 }

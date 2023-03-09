@@ -19,7 +19,7 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                    <li class="breadcrumb-item"><a href="#">Aplikasi</a></li>
+                    <li class="breadcrumb-item"><a href="/application">Aplikasi</a></li>
                     <li class="breadcrumb-item active">butiran</li>
                 </ol>
             </div>
@@ -31,13 +31,13 @@
 
 <div class="container col-md-12">
 <div class="row">
-<div class="col-md-12" style="padding:0px 0px 0px 100px;">
 
-<div style="height:100px" class="col-md-4 btn btn-success">Approved <br /> 8</div>
-<div style="height:100px" class=" col-md-3 btn btn-danger">Keep In View <br />12</div>
-<div style="height:100px" class="col-md-4 btn btn-primary">inprocess <br /> 6</div>
 
-</div>
+<div  class="col-md-4"><div style="height:80px" class="card p-2 bg-success text-center text-white rounded-0"> Approved <br /> 8</div></div>
+<div  class=" col-md-4 "><div style="height:80px" class="card p-2 bg-danger text-center text-white rounded-0">Keep In View <br />12</div></div>
+<div class="col-md-4  "><div style="height:80px" class="card p-2 bg-primary text-center text-white rounded-0">In Process <br /> 6</div></div>
+
+ 
 </div>
 
     <div class="card p-3 ">
