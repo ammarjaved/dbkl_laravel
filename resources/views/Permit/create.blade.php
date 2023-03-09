@@ -111,17 +111,18 @@
                                 
                             <tr>
                                 <td>{{$loop->index + 1}}</td>
-                                <td>Pending</td>
+                                <td>{{$data['app']->road_involved}}</td>
                                 <td class="text-center" id="lenght_{{$loop->index}}">{{$map->length}}</td>
                                 <td>
 
-                                    <select name="section_b[key_{{$map->id}}]" class="form-select" id="kaedah_{{$loop->index}}" onchange="kaedah({{$loop->index}})">
+                                    <select name="section_b[select]" class="form-select" id="kaedah_{{$loop->index}}" onchange="kaedah({{$loop->index}})">
                                         <option value="" hidden>-- PILIH --</option>
                                         <option value="KT">KT</option>
                                         <option value="HDD/PJ/MT/PT">HDD/PJ/MT/PT</option>
                                         
                                         <option value="BH">BH</option>
                                     </select>
+                                    <input type="hidden" name="section_b[value]" id="section_b_value">
                                 </td>
                                 <td id="sel_kaedah_{{$loop->index}}" class="text-center"> </td>
                                 <td id="kaedah_val_{{$loop->index}}" class="text-center"></td>
@@ -339,7 +340,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive"> 
+                        {{-- <div class="table-responsive"> 
                         <table class="table table-bordered table-responsive">
                             <thead>
                                 <th colspan="2" class="text-center">KIRAAN JUMLAH BAYARAN KERJA KOREKAN</th>
@@ -347,7 +348,7 @@
                             <tbody>
                                 <tr>
                                     <th class="text-end">JUMLAH BAHAGIAN A</th>
-                                    <td class="col-md-1"></td>
+                                    <td class="col-md-1">5,000.00 RM</td>
                                 </tr>
                                 <tr>
                                     <th class="text-end"> JUMLAH BAHAGIAN B</th>
@@ -371,7 +372,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div></div>
+                    </div>--}}
+                </div> 
                 </div>
         </div>
         <div class="text-center">
@@ -397,6 +399,7 @@
         }
         let kaedah_l = kaedah  === 20 ? 'no' : 'm'
         $(`#sel_kaedah_${id}`).html(`RM ${kaedah}.00 / ${ kaedah_l}`)
+        $(`#section_b_value`).val(kaedah)
         len = parseInt($(`#lenght_${id}`).html())
 
         $(`#kaedah_val_${id}`).html(len*kaedah)
@@ -427,12 +430,31 @@
     var total_section_c = 0;
     var total_section_d = 0;
     var total = 0;
+    var pre_total= 0;
     var num = 0 ;
     var pre = 0;
     function logong(section ,id){
+      
+
         let val_1 =parseInt($(`#${section}_val_${id}`).html())
+
+        if(section == "section_c"){
+            let pre_sum =  pre_total * val_1
+            total_section_c = parseInt( total_section_c) - parseInt(pre_sum);
+            total = total_section_c
+            $(`input[name=total_${section}]`).val(total )
+            $(`#${section}_t_${id}`).html('')
+             $(`#total_${section}`).html(total)
+
+        }else{
+            total_section_d = total_section_d - (pre_total * val_1);
+            total = total_section_d
+            $(`input[name=total_${section}]`).val(total )
+            $(`#${section}_t_${id}`).html('')
+             $(`#total_${section}`).html(total)
+        }
         let inVal = parseInt($(`#${section}_${id}`).val())
-        if($(`#section_d_${id}`).val() != ""){
+        if($(`#${section}_${id}`).val() != ""){
             let sum = val_1*inVal
             $(`#${section}_t_${id}`).html(sum)
             if(section == "section_d"){
@@ -446,6 +468,10 @@
             $(`input[name=total_${section}]`).val(total )
             $(`#total_${section}`).html(total)
             
+        }else{
+            $(`input[name=total_${section}]`).val(total )
+            $(`#${section}_t_${id}`).html('')
+             $(`#total_${section}`).html(total)
         }
     }
 
@@ -481,17 +507,16 @@
     }
 
 
-    // $("input[type='number']").click(function(){
-    //     pre = this.value
-    //     console.log(pre);
-    //     if(this.value){
-            
-    //         let tVal =   $(`input[name="${this.name}"]`).parent().siblings(":last").html()
-    //         total  = total - parseInt(tVal)
-           
-    //     }
-    //    console.log("qweqw")
-    // })
+    $("input[type='number']").click(function(){
+        pre = this.value
+        console.log(pre);
+        if(this.value != ""){
+            pre_total = parseInt( this.value)
+        }else{
+            pre_total = 0 ;
+        }
+       console.log("qweqw")
+    })
 </script>
 
 

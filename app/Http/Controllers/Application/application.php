@@ -56,22 +56,24 @@ class application extends Controller
        
         $map = json_decode($request->geom);
 
-        $destinationPath = 'asset/images/Permit';
+        // $destinationPath = 'asset/images/Permit';
 
         $user = Auth::user();
-        $maxid = DB::table('tbl_application')
-            ->orderBy('id', 'desc')
-            ->value('id');
-        $maxid = $maxid + 1;
-        if ($user->vendor_user_type == 'Tenaga National Berhad') {
-            $request['ref_num'] = 'TNB' . $maxid;
-        }
-        if ($user->vendor_user_type == 'Telekom Malaysia Berhad') {
-            $request['ref_num'] = 'TELCO' . $maxid;
-        }
-        if ($user->vendor_user_type == 'Air Selangor Sdn Bhd') {
-            $request['ref_num'] = 'Air' . $maxid;
-        }
+
+        $request['file_no'] = "DRAF-".$request->ref_num;
+        // $maxid = DB::table('tbl_application')
+        //     ->orderBy('id', 'desc')
+        //     ->value('id');
+        // $maxid = $maxid + 1;
+        // if ($user->vendor_user_type == 'Tenaga National Berhad') {
+        //     $request['ref_num'] = 'TNB' . $maxid;
+        // }
+        // if ($user->vendor_user_type == 'Telekom Malaysia Berhad') {
+        //     $request['ref_num'] = 'TELCO' . $maxid;
+        // }
+        // if ($user->vendor_user_type == 'Air Selangor Sdn Bhd') {
+        //     $request['ref_num'] = 'Air' . $maxid;
+        // }
 
         // $request['address'] = $request->address." --".$request->address_2." --".$request->address_3." --".$request->address_4." --".$request->address_5;
         $request['parlimen'] = serialize($request->parlimen);
@@ -84,12 +86,15 @@ class application extends Controller
         // dd($request->all());
         try {
             // dd($request);
+            // return $request;
             $app = infoApplicant::create($request->all());
-            for ($i = 0; $i < sizeof($map); $i++) {
-                # code...
 
-                DB::select("INSERT INTO application_geom_info (application_id, geom , length) VALUES ($app->id , st_geomfromgeojson('" . $map[$i][0] . "') , " . $map[$i][1] . ')');
-            }
+            DB::select("INSERT INTO application_geom_info (application_id, geom , length) VALUES ($app->id , st_geomfromgeojson('" . $request->geom . "') , " . $request->cabel_length . ')');
+            // for ($i = 0; $i < sizeof($map); $i++) {
+            //     # code...
+
+            //     DB::select("INSERT INTO application_geom_info (application_id, geom , length) VALUES ($app->id , st_geomfromgeojson('" . $map[$i][0] . "') , " . $map[$i][1] . ')');
+            // }
         } catch (Exception $e) {
             return $e->getMessage();
             return redirect()

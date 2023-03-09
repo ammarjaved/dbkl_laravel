@@ -28,9 +28,12 @@ class PermitController extends Controller
     public function create($id)
     {
         //
+   
         $data = [];
         $data['id'] = $id;
-        if (infoApplicant::find($id)) {
+        $app = infoApplicant::find($id);
+        if ($app) {
+            $data['app'] = $app;
             $data['geom'] = DB::table('application_geom_info')
                 ->where('application_id', $id)
                 ->get();
@@ -92,7 +95,10 @@ class PermitController extends Controller
     public function edit($id)
     {
         //
+        // return $id;
+       
         $permit = Permit::where('application_id', $id)->first();
+ 
         if ($permit) {
             $permit['section_c'] = json_decode($permit->section_c);
             $permit['section_b'] = json_decode($permit->section_b);
@@ -102,8 +108,11 @@ class PermitController extends Controller
                 ->where('application_id', $id)
                 ->get();
             return view('Permit.edit', ['permit' => $permit, 'data' => $data]);
-        }
-        return redirect()->back();
+            
+         
+    }
+ 
+        return redirect()->route('permit.create',$id);
     }
 
     /**
@@ -116,6 +125,16 @@ class PermitController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        Permit::find($id)->update([
+            'job_title' => $request->job_title,
+            'section_c' => json_encode($request->lorong),
+            'section_d' => json_encode($request->BILlorong),
+            'section_b' => json_encode($request->section_b),
+            'total_section_c' => $request->total_section_c,
+            'total_section_d' => $request->total_section_d,
+        ]);
+        return redirect('/');
     }
 
     /**

@@ -31,8 +31,8 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                        <li class="breadcrumb-item"><a href="#">Aplikasi</a></li>
+                        <li class="breadcrumb-item"><a href="/">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="/">Aplikasi</a></li>
                         <li class="breadcrumb-item active">terperinci</li>
                     </ol>
                 </div>
@@ -106,16 +106,14 @@
                         </thead>
                         <tbody>
                             @foreach ($data['geom'] as $map)
-                                    @php
-                                    $key = "key_".$map->id;
-                                    @endphp
+                                   
                             <tr>
                                 <td>{{$loop->index + 1}}</td>
                                 <td>Pending</td>
                                 <td class="text-center" id="lenght_{{$loop->index}}">{{$map->length}}</td>
                                 <td>
 
-                                   <span>{{$permit->section_b->$key}}</span>
+                                   <span id="kaedah_{{$loop->index}}">{{$permit->section_b->select}}</span>
                                 </td>
                                 <td id="sel_kaedah_{{$loop->index}}" class="text-center"> </td>
                                 <td id="kaedah_val_{{$loop->index}}" class="text-center"></td>
@@ -342,11 +340,11 @@
                             <tbody>
                                 <tr>
                                     <th class="text-end">JUMLAH BAHAGIAN A</th>
-                                    <td class="col-md-1"></td>
+                                    <td class="col-md-2">5000.00 RM</td>
                                 </tr>
                                 <tr>
                                     <th class="text-end"> JUMLAH BAHAGIAN B</th>
-                                    <td></td>
+                                    <td><span id="total_b"></span></td>
                                 </tr>
                                 <tr>
                                     <th class="text-end">JUMLAH BAHAGIAN C + JUMLAH BAHAGIAN D</th>
@@ -376,54 +374,56 @@
 
 
 @section('script')
+    <script>
+        function kaedah(id) {
+            let getkaedah = $(`#kaedah_${id}`).html()
 
-<script>
-    
+            let kaedah = 0;
+            if (getkaedah == 'BH') {
+                kaedah = 20
+            } else if (getkaedah == 'KT') {
+                kaedah = 50
+            } else if (getkaedah == 'HDD/PJ/MT/PT') {
+                kaedah = 30
+            }
+            let kaedah_l = kaedah === 20 ? 'no' : 'm'
+            $(`#sel_kaedah_${id}`).html(`RM ${kaedah}.00 / ${ kaedah_l}`)
+            len = parseInt($(`#lenght_${id}`).html())
 
-    function kaedah(id){
-        let getkaedah = $(`#kaedah_${id}`).val()
-        let kaedah = 0 ;
-        if(getkaedah == 'BH'){
-            kaedah = 20
-        }else if(getkaedah == 'KT'){
-            kaedah = 50
-        }else if(getkaedah == 'HDD/PJ/MT/PT'){
-            kaedah = 30
+            $(`#kaedah_val_${id}`).html(len * kaedah)
+            $('#total_b').html(len * kaedah)
+
+
         }
-        let kaedah_l = kaedah  === 20 ? 'no' : 'm'
-        $(`#sel_kaedah_${id}`).html(`RM ${kaedah}.00 / ${ kaedah_l}`)
-        len = parseInt($(`#lenght_${id}`).html())
 
-        $(`#kaedah_val_${id}`).html(len*kaedah)
-
-
-    }
-
-    var total_section_c = 0;
+        var total_section_c = 0;
     var total_section_d = 0;
     var total = 0;
+    var pre_total= 0;
     var num = 0 ;
     var pre = 0;
-    // function logong(element , val){
-    //     num = val
-    //     if(element.value ){
-    //     let tVal =  parseInt(element.value)*num;
-    //     console.log($(`input[name="${element.name}"]`).parent().siblings(":last").html(tVal));
-    //     console.log(tVal);
-    //     total =  tVal + parseInt( total);
-    //     console.log(total)
-    //     $('#billorongTotal').html(total);
-    //     $('input[name="total_section_d"]').val(total)
-    //     }
-      
-       
-    // }
-
-
     function logong(section ,id){
+      
+
         let val_1 =parseInt($(`#${section}_val_${id}`).html())
+
+        if(section == "section_c"){
+            let pre_sum =  pre_total * val_1
+            total_section_c = parseInt( total_section_c) - parseInt(pre_sum);
+            total = total_section_c
+            $(`input[name=total_${section}]`).val(total )
+            $(`#${section}_t_${id}`).html('')
+             $(`#total_${section}`).html(total)
+
+        }else{
+            total_section_d = total_section_d - (pre_total * val_1);
+            total = total_section_d
+            $(`input[name=total_${section}]`).val(total )
+            $(`#${section}_t_${id}`).html('')
+             $(`#total_${section}`).html(total)
+        }
         let inVal = parseInt($(`#${section}_${id}`).val())
-        if($(`#section_d_${id}`).val() != ""){
+        if($(`#${section}_${id}`).val() != ""){
             let sum = val_1*inVal
             $(`#${section}_t_${id}`).html(sum)
             if(section == "section_d"){
@@ -437,54 +437,65 @@
             $(`input[name=total_${section}]`).val(total )
             $(`#total_${section}`).html(total)
             
-        }
-    }
-
-  
-    $(document).ready(function(){
-       callLogong()
-       $('input[type="number"]').attr('disabled', 'disabled');
-
-    })
-
-    function callLogong(){
-        for (let index = 0; index <6; index++) {
-            logong('section_c',index+1)
-
-            
-        }  
-        for (let index = 0; index <6; index++) {
-            logong('section_d',index+1)
-            
-            
-        }  
-      }
-
-        
-    // $("input[type='number']").click(function(){
-    //     pre = this.value
-    //     console.log(pre);
-    //     if(this.value){
-            
-    //         let tVal =   $(`input[name="${this.name}"]`).parent().siblings(":last").html()
-    //         total  = total - parseInt(tVal)
-           
-    //     }
-    //    console.log("qweqw")
-    // })
-
-    function changeIcon(id){
-        if( $(`#${id}`).hasClass('fa-plus')){
-            $(`#${id}`).removeClass('fa-plus')
-            $(`#${id}`).addClass('fa-minus')
         }else{
-            $(`#${id}`).removeClass('fa-minus')
-            $(`#${id}`).addClass('fa-plus')
+            $(`input[name=total_${section}]`).val(total )
+            $(`#${section}_t_${id}`).html('')
+             $(`#total_${section}`).html(total)
         }
-        
-       
     }
-</script>
 
 
+        $(document).ready(function() {
+            callLogong()
+            kaedah(0)
+        })
+
+        function callLogong() {
+            for (let index = 0; index < 6; index++) {
+                logong('section_c', index + 1)
+
+
+            }
+            for (let index = 0; index < 6; index++) {
+                logong('section_d', index + 1)
+
+
+            }
+        }
+
+
+        // $("input[type='number']").click(function(){
+        //     pre = this.value
+        //     console.log(pre);
+        //     if(this.value){
+
+        //         let tVal =   $(`input[name="${this.name}"]`).parent().siblings(":last").html()
+        //         total  = total - parseInt(tVal)
+
+        //     }
+        //    console.log("qweqw")
+        // })
+
+        function changeIcon(id) {
+            if ($(`#${id}`).hasClass('fa-plus')) {
+                $(`#${id}`).removeClass('fa-plus')
+                $(`#${id}`).addClass('fa-minus')
+            } else {
+                $(`#${id}`).removeClass('fa-minus')
+                $(`#${id}`).addClass('fa-plus')
+            }
+
+
+        }
+        $("input[type='number']").click(function(){
+        pre = this.value
+        console.log(pre);
+        if(this.value != ""){
+            pre_total = parseInt( this.value)
+        }else{
+            pre_total = 0 ;
+        }
+       console.log("qweqw")
+    })
+    </script>
 @endsection

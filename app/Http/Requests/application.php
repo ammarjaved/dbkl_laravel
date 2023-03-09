@@ -24,8 +24,9 @@ class application extends FormRequest
     public function rules()
     {
         return [
-        'cabel_length'  => 'required',
-        'type_application'       => 'required',
+        'ref_num'           => 'required',
+        'cabel_length'      => 'required',
+        'type_application'  => 'required',
         'name_of_applicant' => 'required',
         'company_name'      => 'required',
         'telephone_no'      => 'required|min:9|max:11',

@@ -202,9 +202,12 @@
 
         <div class="text-center p-3"><button class="btn btn-primary ">Update</button></div>
         </form>
+       
     </div>
 
-
+    <div class="text-end">
+        <a href="{{route('permit.edit',$app->id)}}"> <button class="btn btn-primary">NEXT</button></a>
+    </div>
 </div>
 </div>
 
