@@ -68,9 +68,9 @@
                             </span>
                         </div>
                         <div class="col-md-5"><input type="text"
-                                class="form-control @error('ref_num') is-invalid @enderror" name="ref_num"
-                                id="ref_num" value="{{ old('ref_num') }}"></div>
-                       
+                                class="form-control @error('ref_num') is-invalid @enderror" name="ref_num" id="ref_num"
+                                value="{{ old('ref_num') }}"></div>
+
                     </div>
 
                     <div class="row p-3 pb-0">
@@ -211,7 +211,7 @@
                             </span>
                         </div>
 
-                        <div class="col-md-5">
+                        {{-- <div class="col-md-5">
 
                             <input type="checkbox" name="parlimen[bukit_bintang]"
                                 {{ old('parlimen.bukit_bintang') == 'on' ? 'checked' : '' }} id="bukit_bintang"
@@ -246,6 +246,47 @@
                             <input type="checkbox" name="parlimen[kepong]"
                                 {{ old('parlimen.kepong') == 'on' ? 'checked' : '' }} id="kepong"
                                 class="form-check-input"><label for="kepong">Kepong</label><br>
+                        </div> --}}
+
+
+                        <div class="col-md-5">
+
+                            <input type="checkbox" name="parlimen[kuala_langat]"
+                                {{ old('parlimen.kuala_langat') == 'on' ? 'checked' : '' }} id="02_check"
+                                class=" form-check-input "><label for="02_check">Kuala Langat</label><br>
+
+                            <input type="checkbox" name="parlimen[kuala_selangor]"
+                                {{ old('parlimen.kuala_selangor') == 'on' ? 'checked' : '' }} id="04_check"
+                                class=" form-check-input"><label for="04_check">Kuala Selangor</label><br>
+
+                            <input type="checkbox" name="parlimen[sabak_bernam]"
+                                {{ old('parlimen.sabak_bernam') == 'on' ? 'checked' : '' }} id="05_check"
+                                class=" form-check-input"><label for="05_check">Sabak Bernam</label><br>
+
+                            <input type="checkbox" name="parlimen[ulu_langat]"
+                                {{ old('parlimen.ulu_langat') == 'on' ? 'checked' : '' }} id="06_check"
+                                class="form-check-input "><label for="06_check">Ulu Langat</label><br>
+
+                            <input type="checkbox" name="parlimen[ulu_selangor]"
+                                {{ old('parlimen.ulu_selangor') == 'on' ? 'checked' : '' }} id="07_check"
+                                class=" form-check-input"><label for="07_check">Ulu Selangor</label> <br>
+
+                            <input type="checkbox" name="parlimen[petaling]"
+                                {{ old('parlimen.petaling') == 'on' ? 'checked' : '' }} id="08_check"
+                                class=" form-check-input"><label for="08_check">Petaling</label><br>
+
+                            <input type="checkbox" name="parlimen[Gombak]"
+                                {{ old('parlimen.Gombak') == 'on' ? 'checked' : '' }} id="09_check"
+                                class=" form-check-input"><label for="09_check">Gombak</label><br>
+
+                            <input type="checkbox" name="parlimen[Sepang]"
+                                {{ old('parlimen.Sepang') == 'on' ? 'checked' : '' }} id="10_check"
+                                class=" form-check-input"><label for="10_check">Sepang</label><br>
+
+                            <input type="checkbox" name="parlimen[Klang]"
+                                {{ old('parlimen.Klang') == 'on' ? 'checked' : '' }} id="01_check"
+                                class="form-check-input "><label for="01_check">Klang</label><br>
+
                         </div>
                     </div>
 
@@ -308,11 +349,39 @@
             var map = L.map('map').setView(center, 11);
 
             // Set up the OSM layer
-            L.tileLayer(
+            var street = L.tileLayer(
                 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 18
                 }).addTo(map);
+            dark = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'),
+                googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                    maxZoom: 20,
+                    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+                });
 
+            var dp_submitted = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/cite/wms", {
+                layers: 'cite:selangor_district',
+                format: 'image/png',
+                maxZoom: 20,
+                transparent: true
+            }).addTo(map);
+
+
+
+            var baseLayers = {
+                "Street": street,
+                "Dark": dark,
+                "Satellite": googleSat,
+
+            };
+
+            var overlays = {
+
+                "Selengor Districts": dp_submitted
+
+            };
+
+            L.control.layers(baseLayers, overlays).addTo(map);
 
 
             var GooglePlacesSearchBox = L.Control.extend({
@@ -402,7 +471,7 @@
                 // arr = [];
                 // console.log(mapData)
                 $('#geomID').val(JSON.stringify(data.geometry));
-
+                getDistrict(JSON.stringify(data.geometry));
 
             })
 
@@ -424,11 +493,49 @@
                 layers.eachLayer(function(layer) {
                     $('#geomID').val('');
                 });
+                for (let index = 0; index < 11; index++) {
+                if(index <= 9){
+                    $(`#0${index}_check`).prop('checked', false);
+                }else{
+                    $(`#${index}_check`).prop('checked', false);
+                }
+               
+            }
             });
 
-            let params = $('input[name="work_type"]:checked').val();;
+            let params = $('input[name="work_type"]:checked').val();
+           
             changeTypeApplication(params);
         });
+
+
+
+
+        function getDistrict(geom) {
+
+            for (let index = 0; index < 11; index++) {
+                if(index <= 9){
+                    $(`#0${index}_check`).prop('checked', false);
+                }else{
+                    $(`#${index}_check`).prop('checked', false);
+                }
+               
+            }
+            $.ajax({
+                url: `/get-district-geom/${geom}`,
+                type: 'GET',
+                success: function(res) {
+                    data = res.data;
+                    for (let index = 0; index < data.length; index++) {
+
+                     
+                        $(`#${data[index].kod_daerah}_check`).prop('checked', true);
+                       
+
+                    }
+                }
+            })
+        }
 
         function changeTypeApplication(params) {
             $('#type_application').find('option').remove().end();

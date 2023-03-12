@@ -16,12 +16,12 @@ class dbkl
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next ,$user)
     {
-        if(Auth::user()->app_user_type=='dbkl'){
-            return $next($request);
-        }else{
-        return redirect()->route('application.index');
-        }
+        if(Auth::user()->app_user_type != $user){
+            return redirect()->route('application.index');
+           
+        } 
+        return $next($request);
     }
 }

@@ -9,9 +9,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Permit;
 
 class application extends Controller
 {
+
+
+
+    public function __construct()
+    {
+         
+        $this->middleware('dbkl:vendor')->except('show','index');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -114,7 +126,22 @@ class application extends Controller
     {
         $app = infoApplicant::find($id);
 
-        return $app ? view('Application.show', ['app' => $app]) : abort('404');
+        if(!$app){
+            return  abort('404');
+        }
+
+        $permit = Permit ::where('application_id', $id)->first();
+        if ($permit) {
+            $permit['section_c'] = json_decode($permit->section_c);
+            $permit['section_b'] = json_decode($permit->section_b);
+            $permit['section_d'] = json_decode($permit->section_d);
+            // return $permit ; 
+            $data['geom'] = DB::table('application_geom_info')
+                ->where('application_id', $id)
+                ->get();
+                return $app ? view('Application.show', ['app' => $app,'data'=>$data,'permit'=>$permit]) : abort('404');
+        }
+        return $app ? view('Application.show', ['app' => $app,'permit'=>$permit]) : abort('404');
     }
 
     /**

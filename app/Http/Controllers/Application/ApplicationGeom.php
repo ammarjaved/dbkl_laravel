@@ -52,4 +52,11 @@ class ApplicationGeom extends Controller
         $geom = DB::select( $sql);
          return $geom[0]->geojson;
     }
+
+    public function getDisitrcit($geom)
+    {
+        // $geomm = '{"type":"LineString","coordinates":[[101.735458,3.107274],[101.749878,3.091504],[101.758804,3.078477]]}';
+    $result = DB::select("SELECT daerah, kod_daerah FROM selangor_district WHERE ST_Intersects(geom, ST_GeomFromGeoJSON('$geom'))");
+    return response()->json(['data' => $result, 'status' => "200"]);
+    }
 }

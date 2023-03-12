@@ -165,7 +165,7 @@
                 $parlimen = unserialize($app->parlimen)  ;
             
                 @endphp
-                <div class="col-md-7">
+                {{-- <div class="col-md-7">
                        
                     <input type="checkbox" name="parlimen[bukit_bintang]" {{array_key_exists('bukit_bintang', $parlimen)  ? 'checked' : ''}}  id="bukit_bintang" class=" form-check-input "><label
                         for="bukit_bintang">Bukit Bintang</label><br>
@@ -188,7 +188,49 @@
                         for="cheras">Cheras</label><br>
                     <input type="checkbox" name="parlimen[kepong]" {{array_key_exists('kepong', $parlimen) ? 'checked' : ''}} id="kepong" class="form-check-input"><label
                         for="kepong">Kepong</label><br>
+                </div> --}}
+
+
+                <div class="col-md-5">
+
+                    <input type="checkbox" name="parlimen[kuala_langat]"
+                    {{array_key_exists('kuala_langat', $parlimen)  ? 'checked' : ''}}  id="02_check"
+                        class=" form-check-input "><label for="02_check">Kuala Langat</label><br>
+
+                    <input type="checkbox" name="parlimen[kuala_selangor]"
+                    {{array_key_exists('kuala_selangor', $parlimen)  ? 'checked' : ''}}  id="04_check"
+                        class=" form-check-input"><label for="04_check">Kuala Selangor</label><br>
+
+                    <input type="checkbox" name="parlimen[sabak_bernam]"
+                    {{array_key_exists('sabak_bernam', $parlimen)  ? 'checked' : ''}}  id="05_check"
+                        class=" form-check-input"><label for="05_check">Sabak Bernam</label><br>
+
+                    <input type="checkbox" name="parlimen[ulu_langat]"
+                    {{array_key_exists('ulu_langat', $parlimen)  ? 'checked' : ''}}  id="06_check"
+                        class="form-check-input "><label for="06_check">Ulu Langat</label><br>
+
+                    <input type="checkbox" name="parlimen[ulu_selangor]"
+                    {{array_key_exists('ulu_selangor', $parlimen)  ? 'checked' : ''}}  id="07_check"
+                        class=" form-check-input"><label for="07_check">Ulu Selangor</label> <br>
+
+                    <input type="checkbox" name="parlimen[petaling]"
+                    {{array_key_exists('petaling', $parlimen)  ? 'checked' : ''}}  id="08_check"
+                        class=" form-check-input"><label for="08_check">Petaling</label><br>
+
+                    <input type="checkbox" name="parlimen[Gombak]"
+                    {{array_key_exists('Gombak', $parlimen)  ? 'checked' : ''}}  id="09_check"
+                        class=" form-check-input"><label for="09_check">Gombak</label><br>
+
+                    <input type="checkbox" name="parlimen[Sepang]"
+                    {{array_key_exists('Sepang', $parlimen)  ? 'checked' : ''}}  id="10_check"
+                        class=" form-check-input"><label for="10_check">Sepang</label><br>
+
+                    <input type="checkbox" name="parlimen[Klang]"
+                    {{array_key_exists('Klang', $parlimen)  ? 'checked' : ''}}  id="01_check"
+                        class="form-check-input "><label for="01_check">Klang</label><br>
+
                 </div>
+
         </div>
 
         <div class="row p-3 pb-0">
@@ -246,13 +288,42 @@
         var map = L.map('map').setView(center, 11);
 
         // Set up the OSM layer
-        L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18
-        }).addTo(map);
+     
+
+        var street = L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 18
+                }).addTo(map);
+            dark = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'),
+                googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                    maxZoom: 20,
+                    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+                });
+
+            var dp_submitted = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/cite/wms", {
+                layers: 'cite:selangor_district',
+                format: 'image/png',
+                maxZoom: 20,
+                transparent: true
+            }).addTo(map);
 
 
-//setTimeout(function(){
+
+            var baseLayers = {
+                "Street": street,
+                "Dark": dark,
+                "Satellite": googleSat,
+
+            };
+
+            var overlays = {
+
+                "Selengor Districts": dp_submitted
+
+            };
+
+            L.control.layers(baseLayers, overlays).addTo(map);
+
    
 
     var drawnItems = new L.FeatureGroup();

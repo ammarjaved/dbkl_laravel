@@ -43,25 +43,28 @@
                         <thead>
                             <tr>
                                 <th>Nombor Rujukan Utiliti</th>
-                                <th>No Telefon</th>
+                               
                                 <th>Nama Syarikat</th>
                                 <th>Nama Pemohon</th>
                                 <th>Nama Division</th>
 
                                 <th>Status</th>
+                                <th>Detail</th>
+
 
                             </tr>
                         </thead>
                         @foreach ($applications as $application)
                             <tr>
                                 <td>{{ $application->ref_num }}</td>
-                                <td>{{ $application->telephone_no }}</td>
+ 
                                 <td>{{ $application->company_name }}</td>
                                 <td>{{ $application->name_of_applicant }}</td>
                                 <td>{{ $application->division }}</td>
                                 <td><button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal"
                                         onclick="getID({{ $application->id }})">{{ $application->status }}</button></td>
+                                        <td><a href="/application/{{$application->id}}"><button class="btn btn-secondary btn-sm">Detail</button></a></td>
                             </tr>
                         @endforeach
                         <tbody>

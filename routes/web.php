@@ -39,19 +39,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/send-to-dbkl/{id}',[UpdateStatus::class,'SendToDbkl']);
 
 
-    Route::group(['middleware' => 'dbkl'], function () {
+    Route::group(['middleware' => 'dbkl:dbkl'], function () {
         Route::get('/', [application::class, 'index']);
         Route::post('update-status', [UpdateStatus::class, 'changeStatus']);
         Route::get('getmap', [MapController::class, 'index']);
     });
 
     Route::get('/', [application::class, 'index']);
+
+    Route::get("/get-distirict-by-line/{line}",[getLineDistrict::class,"GHJKGK"]);
+
+    Route::get('/get-district-geom/{geom}',[ApplicationGeom::class,'getDisitrcit']);
+
     Route::resource('application-progress',ApplicationProgress::class);
 });
 
-Route::group(['prefix' => '/asd'], function () {
-    Route::get('', [RoutingController::class, 'index'])->name('root');
-    Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
-    Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
-    Route::get('{any}', [RoutingController::class, 'root'])->name('any');
-});
+// Route::group(['prefix' => '/asd'], function () {
+//     Route::get('', [RoutingController::class, 'index'])->name('root');
+//     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
+//     Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
+//     Route::get('{any}', [RoutingController::class, 'root'])->name('any');
+// });
