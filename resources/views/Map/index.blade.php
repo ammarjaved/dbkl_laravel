@@ -132,15 +132,15 @@ function addpie(){
         colorByPoint: true,
         data: [{
             name: 'Approved',
-            y: 76,
+            y: {{$data->approved}},
             sliced: true,
             selected: true
         },  {
             name: 'KIV',
-            y: 12
+            y: {{$data->kiv}}
         },  {
             name: 'inprocess',
-            y: 12
+            y: {{$data->inprocess}}
         }]
     }]
 });
@@ -182,18 +182,18 @@ function venderpie(){
         colorByPoint: true,
         data: [{
             name: 'TNB',
-            y: 76,
+            y: {{$data->tnb}},
             color:'green',
             sliced: true,
             selected: true
         },  {
             name: 'Air Selengor',
             color:'red',
-            y: 12
+            y: {{$data->air}}
         },  {
             name: 'Telco',
             color:'yellow',
-            y: 12
+            y: {{$data->telco}}
         }]
     }]
 });
@@ -272,6 +272,7 @@ function barChart(){
     $(document).ready(function(){
         var map = L.map('map').setView(center, 8);
         // Set up the OSM layer
+        console.log({{$data->approved}});
         addpie();
         venderpie();
         barChart();

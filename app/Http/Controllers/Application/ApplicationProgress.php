@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application;
 use App\Http\Controllers\Controller;
 use App\Models\infoApplicant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationProgress extends Controller
 {
@@ -16,7 +17,7 @@ class ApplicationProgress extends Controller
     public function index()
     {
         //
-        $app = infoApplicant::where('status', 'approved')->get();
+        $app = infoApplicant::where('status', 'approved')->where('created_by', Auth::user()->id)->get();
         return view('ApplicationProgress.index', ['applications' => $app]);
     }
 

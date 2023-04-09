@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\Application\UpdateStatus;
 use App\Http\Controllers\Application\ApplicationProgress;
+use Dompdf\Dompdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('application-progress',ApplicationProgress::class);
 });
+
+
+// Route::get('/pdf', function () {
+//     return view('pdf_view');
+// });
+
+
+Route::get('/pdf', function () {
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml(view('pdf_view'));
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream('document.pdf');
+});
+
 
 // Route::group(['prefix' => '/asd'], function () {
 //     Route::get('', [RoutingController::class, 'index'])->name('root');
