@@ -65,6 +65,31 @@
                                 </li>
 
                                 <li>
+                                    <a href="/application-status/{{'approved'}}" class="text-center mb-3">
+                                        <p class="text-center"> <i class=" far fa-edit" style="color:white"></i></p>
+                                        <div class="text-center">   <span class="text-white "> 
+                                            Dalam Proses </span></div>
+
+                                    </a>
+
+
+
+
+                                </li>
+
+                                <li>
+                                    <a href="/application-status/{{'kiv'}}" class="text-center mb-3">
+                                        <p class="text-center"> <i data-feather="file-text" style="color:white"></i></p>
+                                        <div class="text-center">   <span class="text-white "> KIV </span></div>
+
+                                    </a>
+
+
+
+
+                                </li>
+
+                                <li>
                                     <a href="/getmap" class="text-center">
                                         <p class="text-center"> <i data-feather="map" style="color:white"></i></p>
                                 <div class="text-center">  <span class="text-white px-3"> Map View</span></div>

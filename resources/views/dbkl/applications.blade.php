@@ -61,9 +61,7 @@
                                 <td>{{ $application->company_name }}</td>
                                 <td>{{ $application->name_of_applicant }}</td>
                                 <td>{{ $application->division }}</td>
-                                <td><button class="btn btn-sm btn-success " data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"
-                                        onclick="getID({{ $application->id }})">{{ $application->status }}</button></td>
+                                <td><button class="btn btn-sm " >{{ $application->status }}</button></td>
                                         <td><a href="/application/{{$application->id}}"><button class="btn btn-secondary btn-sm">Detail</button></a></td>
                             </tr>
                         @endforeach

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\Application\UpdateStatus;
 use App\Http\Controllers\Application\ApplicationProgress;
+use App\Http\Controllers\ApplicationByStatus;
 use Dompdf\Dompdf;
 
 /*
@@ -53,24 +54,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get-district-geom/{geom}',[ApplicationGeom::class,'getDisitrcit']);
 
     Route::resource('application-progress',ApplicationProgress::class);
+    Route::get('/application-status/{status}',[ApplicationByStatus::class,'index']);
+});
+
+
+Route::get('/pdf-view', function () {
+    return view('pdf_view');
 });
 
 
 // Route::get('/pdf', function () {
-//     return view('pdf_view');
+//     $dompdf = new Dompdf();
+//     $dompdf->loadHtml(view('pdf_view'));
+//     $dompdf->setPaper('A4', 'landscape');
+//     $dompdf->render();
+//     $dompdf->stream('document.pdf');
 // });
 
-
 Route::get('/pdf', function () {
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml(view('pdf_view'));
-    $dompdf->setPaper('A4', 'landscape');
-    $dompdf->render();
-    $dompdf->stream('document.pdf');
+    require_once __DIR__.'/../vendor/jimmyjs/laravel-report-generator/src/Facades/Pdf.php';
+    $data = [
+        'name' => 'John Doe',
+        'email' => 'johndoe@example.com',
+    ];
+    $pdf = PDF::loadHTML(view('pdf_view', $data));
+    return $pdf->stream('document.pdf');
 });
 
 
-// Route::group(['prefix' => '/asd'], function () {
+// Route::group(['prefix' => '/'], function () {
 //     Route::get('', [RoutingController::class, 'index'])->name('root');
 //     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
 //     Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');

@@ -74,7 +74,7 @@
                                 <td>{{ $application->division }}</td>
                                 <td>
                                     @if ($application->status == 'inprocess')
-                                    <a href="/send-to-dbkl/{{$application->id}}" onclick="return confirm('Are you sure?')"><button class="btn btn-sm btn-success" >Send To DBKL</button></a>
+                                    <a href="/send-to-dbkl/{{$application->id}}" onclick="return confirm('Are you sure?')"><button class="btn btn-sm btn-success" >SendTo DBKL</button></a>
                                     @else  
 
                             

@@ -68,10 +68,14 @@
         </div>
     </div>
     <div class="row">
+        
 
         <div class="container col-md-12">
-
+           
             <div class="card p-3 ">
+                 <div class="text-end">
+                <button onclick="window.print()" class="btn btn-sm btn-lg "><span class=" fas fa-print"></span> Print</button>
+            </div>   
 
                 {{-- 
                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist" style="background: #d2d0db">
@@ -169,46 +173,7 @@
                                 $parlimen = unserialize($app->parlimen);
                                 
                             @endphp
-                            {{-- <div class="col-md-7">
-
-                                <input type="checkbox" name="parlimen[bukit_bintang]"
-                                    {{ array_key_exists('bukit_bintang', $parlimen) ? 'checked' : '' }} id="bukit_bintang"
-                                    class=" form-check-input "><label for=" ">Bukit
-                                    Bintang</label><br>
-                                <input type="checkbox" name="parlimen[bandar_tun_razak]"
-                                    {{ array_key_exists('bandar_tun_razak', $parlimen) ? 'checked' : '' }}
-                                    id="bandar_tun_razak" class=" form-check-input"><label for=" ">Bandar Tun
-                                    Razak</label><br>
-                                <input type="checkbox" name="parlimen[setiawangsa]"
-                                    {{ array_key_exists('setiawangsa', $parlimen) ? 'checked' : '' }} id="setiawangsa"
-                                    class=" form-check-input"><label for=" ">Setiawangsa</label><br>
-                                <input type="checkbox" name="parlimen[wangsa_maju]"
-                                    {{ array_key_exists('wangsa_maju', $parlimen) ? 'checked' : '' }} id="wangsa_maju"
-                                    class="form-check-input "><label for=" ">Wangsa
-                                    Maju</label><br>
-                                <input type="checkbox" name="parlimen[seputeh]"
-                                    {{ array_key_exists('seputeh', $parlimen) ? 'checked' : '' }} id="seputeh"
-                                    class=" form-check-input"><label for=" ">Seputeh</label> <br>
-                                <input type="checkbox" name="parlimen[titiwangsa]"
-                                    {{ array_key_exists('titiwangsa', $parlimen) ? 'checked' : '' }} id="titiwangsa"
-                                    class=" form-check-input"><label for=" ">Titiwangsa</label><br>
-                                <input type="checkbox" name="parlimen[batu]"
-                                    {{ array_key_exists('batu', $parlimen) ? 'checked' : '' }} id="batu"
-                                    class=" form-check-input"><label for="batu">Batu</label><br>
-                                <input type="checkbox" name="parlimen[segambut]"
-                                    {{ array_key_exists('segambut', $parlimen) ? 'checked' : '' }} id="segambut"
-                                    class=" form-check-input"><label for=" ">Segambut</label><br>
-                                <input type="checkbox" name="parlimen[lembah_pantai]"
-                                    {{ array_key_exists('lembah_pantai', $parlimen) ? 'checked' : '' }} id="lembah_pantai"
-                                    class="form-check-input "><label for=" ">Lembah
-                                    Pantai</label><br>
-                                <input type="checkbox" name="parlimen[cheras]"
-                                    {{ array_key_exists('cheras', $parlimen) ? 'checked' : '' }} id="cheras"
-                                    class="form-check-input "><label for=" ">Cheras</label><br>
-                                <input type="checkbox" name="parlimen[kepong]"
-                                    {{ array_key_exists('kepong', $parlimen) ? 'checked' : '' }} id="kepong"
-                                    class="form-check-input"><label for=" ">Kepong</label><br>
-                            </div> --}}
+                         
 
                             <div class="col-md-5">
 
@@ -327,7 +292,7 @@
                                 onclick="changeIcon('section_b_icon')">
                                 <span> BAHAGIAN B : CAJ GANTI RUGI</span> <i class="fas fa-plus" id="section_b_icon"></i>
                             </button>
-                            <div class="collapse" id="collapseB">
+                            <div class="collapse show" id="collapseB">
                                 <div class="card card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered ">
@@ -400,7 +365,7 @@
                                     JACKING DAN
                                     PILOT TRENCHING)</span> <i class="fas fa-plus" id="section_c_icon"></i>
                             </button>
-                            <div class="collapse" id="collapseC">
+                            <div class="collapse show" id="collapseC">
                                 <div class="card card-body">
 
                                     <div class="table-responsive">
@@ -515,7 +480,7 @@
                                 <span> BAHAGIAN D: KADAR CAJ BAIK PULIH JALAN ( KOREKAN TERBUKA DAN MICRO
                                     TRENCHING)</span><i class="fas fa-plus" id="section_d_icon"></i>
                             </button>
-                            <div class="collapse" id="collapseD">
+                            <div class="collapse show" id="collapseD">
                                 <div class="card card-body">
                                     <div class="">
                                         <table class="table table-bordered table-responsive">
@@ -663,8 +628,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="text-center">
+                                <button class="btn btn-sm btn-success " data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                                onclick="getID({{ $app->id }})">{{ $app->status }}</button>
+                            </div>
                         </div>
                     </div>
+
+                    
                     @else
                     @if (Auth::user()->app_user_type == "vendor")
                         
@@ -680,6 +652,38 @@
 
 
 
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="update-status" onsubmit="return submitFoam()" method="POST">
+                        <div class="modal-body">
+    
+                            @csrf
+                            <input type="hidden" name="id" id="id">
+                            <span class="text-danger" id="er_status"></span>
+                            <select name="status" id="status_s" class="form-select">
+                                <option value="" hidden>Select status</option>
+                                <option value="kiv">kiv</option>
+                                <option value="approved">Approved</option>
+                            </select>
+    
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save </button>
+    
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     @endsection
@@ -923,5 +927,16 @@
                 }
                 console.log("qweqw")
             })
+
+            function getID(id) {
+            $('#id').val(id);
+        }
+
+        function submitFoam() {
+            if ($('#status_s').val() == "") {
+                $('#er_status').html("Select status")
+                return false;
+            }
+        }
         </script>
     @endsection
