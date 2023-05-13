@@ -16,48 +16,16 @@ class LoginController extends Controller
 
         $input = $req->all();
 
-        // $find = User::where('name',$input['username'])->where('password' , $input['password'])->first();
-        
-        // if ( $find) {
-        //     // $token = $find->createToken('MyApp')->plainTextToken;
-        //         return response()
-
-                
-        //                 ->json([
-        //                     'statusCode' => 200, 
-        //                     'message' => 'Success', 
-        //                     'type' => $find->user_type,
-                          
-        //                 ]);
-        //     } else {
-
-        //         return response()
-        //                 ->json([
-        //                     'statusCode' => 404, 
-        //                     'message' => 'Failed', 
-        //                     'type' => 'N/A',
-        //                 ]);
-        //     }
-
-
-
-
-
 
         if (  auth()->attempt(['username' => $input['name'], 'password' => $input['password']])) {
-
-                        // $user= User::where('name', $input['username'])->first();
-
-                        // $token = $user->createToken('MyApp')->plainTextToken;
                     
-                        return response()
-                                ->json([
-                                    'statusCode' => 200, 
-                                    'message' => 'Success', 
-                                    'type' => Auth::user()->type,
-                                    
-                                ]);
-                                // 'token' => $token,
+            return response()
+                    ->json([
+                        'statusCode' => 200, 
+                        'message' => 'Success', 
+                        'type' => Auth::user()->app_user_type,
+                        
+                    ]);
         } else {
 
             return response()

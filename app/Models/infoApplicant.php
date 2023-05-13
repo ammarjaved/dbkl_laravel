@@ -27,6 +27,13 @@ class infoApplicant extends Model
         'after_image',
         'status',
         'file_no',
-        'approved_file_no'
+        'approved_file_no',
+        'image_1',
+        'image_2',
+        'image_3',
+        'image_4',
+        'image_5',
+        'image_6',
+        'work_status',
     ];
 }
