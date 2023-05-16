@@ -42,7 +42,7 @@ class UploadImagesController extends Controller
                 $exc = $file5->getClientOriginalExtension();    
                 $filename =   $application->ref_num.'-image-'.$i.strtotime(now()).'.'.$exc;
                 $file5->move($destinationPath, $filename);
-                $application->$img = $filename;
+                $application->$img ="http://dbkl.aerosynergy.com.my/".$destinationPath."/". $filename;
     
             }
     
